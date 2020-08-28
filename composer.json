@@ -1,0 +1,17 @@
+{
+    "name": "ukfast/laravel-sieve",
+    "description": "A library for filtering eloquent queries",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "George Kelly",
+            "email": "george.kelly@ukfast.co.uk"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "illuminate/database": "^5.4|^6.0|^7.0",
+        "illuminate/http": "^5.4|^6.0|^7.0"
+    }
+}
