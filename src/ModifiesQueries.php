@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Sieve;
+namespace UKFast\Sieve;
 
 use Illuminate\Database\Query\Builder;
 

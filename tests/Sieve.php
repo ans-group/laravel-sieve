@@ -1,6 +1,6 @@
 <?php
 
-namespace UKFast\Sieve;
+namespace Tests;
 
 class Sieve
 {

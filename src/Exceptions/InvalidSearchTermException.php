@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Sieve\Exceptions;
+namespace UKFast\Sieve\Exceptions;
 
 use RuntimeException;
 

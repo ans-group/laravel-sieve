@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Sieve\Filters;
+namespace UKFast\Sieve\Filters;
 
 use App\Sieve\ModifiesQueries;
 use App\Sieve\SearchTerm;

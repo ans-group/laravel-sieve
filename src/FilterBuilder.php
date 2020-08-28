@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Sieve;
+namespace UKFast\Sieve;
 
 use App\Sieve\Filters\EnumFilter;
 use App\Sieve\Filters\StringFilter;

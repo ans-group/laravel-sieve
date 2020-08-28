@@ -9,9 +9,20 @@
             "email": "george.kelly@ukfast.co.uk"
         }
     ],
+    "autoload": {
+        "psr-4": {
+            "UKFast\\Sieve\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
     "minimum-stability": "dev",
     "require": {
-        "illuminate/database": "^5.4|^6.0|^7.0",
-        "illuminate/http": "^5.4|^6.0|^7.0"
+        "illuminate/database": "^6.0|^7.0",
+        "illuminate/http": "^6.0|^7.0",
+        "phpunit/phpunit": "^9.3"
     }
 }
