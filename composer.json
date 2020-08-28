@@ -22,7 +22,10 @@
     "minimum-stability": "dev",
     "require": {
         "illuminate/database": "^6.0|^7.0",
-        "illuminate/http": "^6.0|^7.0",
+        "illuminate/http": "^6.0|^7.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^4.0",
         "phpunit/phpunit": "^9.3"
     }
 }

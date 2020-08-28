@@ -10,31 +10,14 @@ class SieveServiceProvider extends ServiceProvider
 {
     public function register()
     {
-        Builder::macro('search', function () {
-            /** @var Searchable */
+        $app = $this->app;
+
+        Builder::macro('search', function () use ($app) {
             $model = $this->getModel();
 
-            $sieve = new Sieve;
-            $model->sieve($sieve);
+            $sieve = $model->sieve($app->make(Sieve::class));
 
-            foreach ($sieve->getFilters() as $filter) {
-                /** @var ModifiesQueries */
-                $filter = $filter['filter'];
-                $property = $filter['property'];
-
-                foreach ($filter->operators() as $operator) {
-                    if (!Request::has("$property:$operator")) {
-                        continue;
-                    }
-
-                    $term = Request::get("$property:$operator");
-                    
-                    $search = new SearchTerm($property, $operator, $property, $term);
-                    $filter->modifyQuery($this->getQuery(), $search);
-                }
-            }
-
-            return $this;
+            $sieve->apply($this->getQuery());
         });
     }
 }
