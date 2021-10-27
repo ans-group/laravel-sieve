@@ -2,9 +2,9 @@
 
 namespace UKFast\Sieve\Filters;
 
-use App\Sieve\Exceptions\InvalidSearchTermException;
-use App\Sieve\ModifiesQueries;
-use App\Sieve\SearchTerm;
+use UKFast\Sieve\Exceptions\InvalidSearchTermException;
+use UKFast\Sieve\ModifiesQueries;
+use UKFast\Sieve\SearchTerm;
 use Illuminate\Database\Query\Builder;
 
 class EnumFilter implements ModifiesQueries

@@ -15,6 +15,13 @@ class Sieve
         $this->request = $request;
     }
 
+    public function configure($callback)
+    {
+        foreach ($callback(new FilterBuilder) as $prop => $filter) {
+            $this->addFilter($prop, $filter);
+        }
+    }
+
     public function addFilter($property, $filter)
     {
         $this->filters[] = compact('property', 'filter');

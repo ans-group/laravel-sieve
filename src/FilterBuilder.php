@@ -2,8 +2,8 @@
 
 namespace UKFast\Sieve;
 
-use App\Sieve\Filters\EnumFilter;
-use App\Sieve\Filters\StringFilter;
+use UKFast\Sieve\Filters\EnumFilter;
+use UKFast\Sieve\Filters\StringFilter;
 
 class FilterBuilder
 {
@@ -13,6 +13,11 @@ class FilterBuilder
     }
 
     public function string()
+    {
+        return new StringFilter;
+    }
+
+    public function integer()
     {
         return new StringFilter;
     }

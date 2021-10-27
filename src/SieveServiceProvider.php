@@ -15,9 +15,11 @@ class SieveServiceProvider extends ServiceProvider
         Builder::macro('search', function () use ($app) {
             $model = $this->getModel();
 
-            $sieve = $model->sieve($app->make(Sieve::class));
+            $sieve = $app->make(Sieve::class);
+            $model->sieve($sieve);
 
             $sieve->apply($this->getQuery());
+            return $this;
         });
     }
 }
