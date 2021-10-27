@@ -14,7 +14,10 @@ class Pet extends Model implements Searchable
 {
     public function sieve(Sieve $sieve)
     {
-        $sieve->addFilter('name', $sieve->filters()->string());
+        $sieve->configure(fn ($filter) => [
+           'name' => $filter->string(),
+           'breed' => $filter->enum(['Beagle', 'Tiger']),
+        ]);
     }
 }
 ```

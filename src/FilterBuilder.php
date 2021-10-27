@@ -19,6 +19,7 @@ class FilterBuilder
 
     public function integer()
     {
+        // Works for now
         return new StringFilter;
     }
 }
