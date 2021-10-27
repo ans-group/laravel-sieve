@@ -44,6 +44,8 @@ class Sieve
             $filter = $sieveFilter['filter'];
             $property = $sieveFilter['property'];
 
+            $sort = $this->request->get("sort");
+
             foreach ($filter->operators() as $operator) {
                 if (!$this->request->has("$property:$operator")) {
                     continue;
@@ -53,6 +55,14 @@ class Sieve
                 
                 $search = new SearchTerm($property, $operator, $property, $term);
                 $filter->modifyQuery($queryBuilder, $search);
+            }
+
+            if ($sort == "$property:desc") {
+                $queryBuilder->orderBy($property, "desc");
+            }
+
+            if ($sort == "$property:asc") {
+                $queryBuilder->orderBy($property, "asc");
             }
         }
 
