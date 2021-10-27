@@ -1,6 +1,6 @@
 <img src="https://images.ukfast.co.uk/logos/ukfast/441x126_transparent_strapline.png" alt="UKFast Logo" width="350px" height="auto" />
 
-# UKFast Laravel Sieve
+# Laravel Sieve
 
 A library to handle filtering and sortring for your APIs
 
