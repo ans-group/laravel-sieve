@@ -1,0 +1,75 @@
+<?php
+
+namespace Tests\Filters;
+
+use Illuminate\Database\Query\Builder;
+use Tests\TestCase;
+use UKFast\Sieve\Filters\StringFilter;
+use UKFast\Sieve\SearchTerm;
+
+class StringFilterTest extends TestCase
+{
+    /**
+     * @test
+     */
+    public function correctly_applies_eq_operator()
+    {
+        $search = new SearchTerm('name', 'eq', 'name', 'Bob');
+        $builder = app(Builder::class);
+
+        (new StringFilter)->modifyQuery($builder, $search);
+        $where = $builder->wheres[0];
+
+        $this->assertEquals('name', $where['column']);
+        $this->assertEquals('=', $where['operator']);
+        $this->assertEquals('Bob', $where['value']);
+    }
+
+    /**
+     * @test
+     */
+    public function correctly_applies_neq_operator()
+    {
+        $search = new SearchTerm('name', 'neq', 'name', 'Bob');
+        $builder = app(Builder::class);
+
+        (new StringFilter)->modifyQuery($builder, $search);
+        $where = $builder->wheres[0];
+
+        $this->assertEquals('name', $where['column']);
+        $this->assertEquals('!=', $where['operator']);
+        $this->assertEquals('Bob', $where['value']);
+    }
+
+    /**
+     * @test
+     */
+    public function correctly_applies_in_operator()
+    {
+        $search = new SearchTerm('name', 'in', 'name', 'Bob,James');
+        $builder = app(Builder::class);
+
+        (new StringFilter)->modifyQuery($builder, $search);
+        $where = $builder->wheres[0];
+
+        $this->assertEquals('name', $where['column']);
+        $this->assertEquals('In', $where['type']);
+        $this->assertEquals(['Bob', 'James'], $where['values']);
+    }
+
+    /**
+     * @test
+     */
+    public function correctly_applies_nin_operator()
+    {
+        $search = new SearchTerm('name', 'nin', 'name', 'Bob,James');
+        $builder = app(Builder::class);
+
+        (new StringFilter)->modifyQuery($builder, $search);
+        $where = $builder->wheres[0];
+
+        $this->assertEquals('name', $where['column']);
+        $this->assertEquals('NotIn', $where['type']);
+        $this->assertEquals(['Bob', 'James'], $where['values']);
+    }
+}

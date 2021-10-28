@@ -45,4 +45,9 @@ class EnumFilter implements ModifiesQueries
     {
         return ['in', 'eq', 'neq', 'nin'];
     }
+
+    public function allowedValues()
+    {
+        return $this->allowedValues;
+    }
 }

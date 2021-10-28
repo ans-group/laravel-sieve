@@ -14,7 +14,7 @@ class StringFilter implements ModifiesQueries
             $query->where($search->column(), $search->term());
         }
         if ($search->operator() == 'neq') {
-            $query->whereNot($search->column(), $search->term());
+            $query->where($search->column(), '!=', $search->term());
         }
         if ($search->operator() == 'in') {
             $query->whereIn($search->column(), explode(',', $search->term()));
