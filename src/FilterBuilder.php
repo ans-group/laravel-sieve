@@ -2,7 +2,10 @@
 
 namespace UKFast\Sieve;
 
+use UKFast\Sieve\Filters\BooleanFilter;
+use UKFast\Sieve\Filters\DateFilter;
 use UKFast\Sieve\Filters\EnumFilter;
+use UKFast\Sieve\Filters\NumericFilter;
 use UKFast\Sieve\Filters\StringFilter;
 
 class FilterBuilder
@@ -17,9 +20,18 @@ class FilterBuilder
         return new StringFilter;
     }
 
-    public function integer()
+    public function numeric()
     {
-        // Works for now
-        return new StringFilter;
+        return new NumericFilter;
+    }
+
+    public function date()
+    {
+        return new DateFilter;
+    }
+
+    public function boolean($trueVal = 1, $falseVal = 0)
+    {
+        return new BooleanFilter($trueVal, $falseVal);
     }
 }

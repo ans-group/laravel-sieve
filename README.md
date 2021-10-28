@@ -36,6 +36,82 @@ class PetController extends Controller
 }
 ```
 
+## Filters
+
+Filters are done in the query parameters with the format `property:operator=term`, for example
+
+ * `name:eq=Bob` - WHERE name = 'Bob'
+ * `age:lt=20` - WHERE age < 10
+ * `employed:eq=true` - WHERE employed = 1
+
+By default, if no operator is specified, it will default to `eq` so `name=Bob` will expand to `name:eq=Bob`
+
+## Sorting
+
+Sieve will also allow consumers of your API to specify sort order. You can do this by `sort=property:direction`
+
+ * `sort=age:asc`
+ * `sort=id:desc`
+
+## Available Filters
+
+
+### String
+
+The basic filter. Ideal for textual data, implements `eq`, `neq`, `in`, and `nin`
+
+```php
+<?php
+$filter->string()
+```
+
+### Numeric
+
+Ideal for numerical data, on top of the basic operators, it also provides `lt` (less than) and `gt` (greater than)
+
+```php
+<?php
+$filter->numeric()
+```
+
+### Enum
+
+Same as the string filter but with extra validation. Will throw an exception if the user gives an invalid value
+
+```php
+<?php
+$filter->enum(['HR', 'RnD'])
+```
+
+
+### Boolean
+
+Only provides `eq` and `neq`. Also takes two arguments to specify what your true and false values are in the DB
+
+```php
+<?php
+$filter->boolean() // defaults to 1 and 0
+```
+
+### Date
+
+Provides the same operations as numeric
+
+```php
+<?php
+$filter->date(),
+```
+
+You can get type hinting for these filters by specifying `FilterBuilder` when using the configure method
+
+```php
+<?php
+$sieve->configure(fn (FilterBuilder $filter) [
+    'name' => $filter->string(),
+]);
+```
+
+
 ## Contributing
 
 We welcome contributions to this package that will be beneficial to the community.
