@@ -40,7 +40,7 @@ class Sieve
     public function apply($queryBuilder)
     {
         foreach ($this->getFilters() as $sieveFilter) {
-            /** @var ModifiesQueries */
+            /** @var WrappedFilter */
             $filter = $sieveFilter['filter'];
             $property = $sieveFilter['property'];
 
@@ -53,7 +53,21 @@ class Sieve
 
                 $term = $this->request->get("$property:$operator");
                 
-                $search = new SearchTerm($property, $operator, $property, $term);
+                $column = $property;
+                if ($filter instanceof WrappedFilter && $filter->column) {
+                    $column = $filter->column;
+                }
+                
+                $search = new SearchTerm($property, $operator, $column, $term);
+
+                if ($filter instanceof WrappedFilter && strpos($filter->column, '.') !== false) {
+                    [$relationship, $relCol] = explode(".", $filter->column);
+                    $relSearch = new SearchTerm($property, $operator, $relCol, $term);
+                    $queryBuilder->whereHas($relationship, function ($query) use ($relCol, $relSearch, $filter) {
+                        $filter->modifyQuery($query, $relSearch);
+                    });
+                    continue;
+                }
                 $filter->modifyQuery($queryBuilder, $search);
             }
 

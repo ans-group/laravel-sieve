@@ -18,10 +18,15 @@ class EnumFilter implements ModifiesQueries
 
     public function modifyQuery(Builder $query, SearchTerm $search)
     {
-        if (!in_array($search->term(), $this->allowedValues)) {
-            throw new InvalidSearchTermException(
-                "{$search->property()} must be one of " . implode(", ", $this->allowedValues)
-            );
+        if ($search->operator() == 'nin' || $search->operator() == 'in') {
+            $terms = explode(",", $search->term());
+            foreach ($terms as $term) {
+                if (!in_array($term, $this->allowedValues())) {
+                    throw new InvalidSearchTermException(
+                        "{$search->property()} must be one of " . implode(", ", $this->allowedValues)
+                    );
+                }
+            }
         }
 
         if ($search->operator() == 'eq') {
