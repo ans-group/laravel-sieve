@@ -131,7 +131,6 @@ $sieve->configure(fn ($filter) => [
 ])
 ```
 
-
 ## Contributing
 
 We welcome contributions to this package that will be beneficial to the community.

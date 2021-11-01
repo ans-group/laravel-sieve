@@ -2,8 +2,6 @@
 
 namespace UKFast\Sieve;
 
-use Illuminate\Database\Eloquent\Builder;
-
 class WrappedFilter implements ModifiesQueries
 {
     protected ModifiesQueries $filter;
@@ -15,7 +13,7 @@ class WrappedFilter implements ModifiesQueries
         $this->filter = $filter;
     }
 
-    public function modifyQuery(Builder $query, SearchTerm $search)
+    public function modifyQuery($query, SearchTerm $search)
     {
         return $this->filter->modifyQuery($query, $search);
     }
