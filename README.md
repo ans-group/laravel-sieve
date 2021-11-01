@@ -111,6 +111,26 @@ $sieve->configure(fn (FilterBuilder $filter) [
 ]);
 ```
 
+## Relationships
+
+You can filter on relationships using the `for` method on the filter builder
+
+```php
+<?php
+$sieve->configure(fn ($filter) => [
+    'owner_name' => $filter->for('owner.name')->string()
+])
+```
+
+You can also use the `for` method if your API properties don't match column names in the database, for example
+
+```php
+<?php
+$sieve->configure(fn ($filter) => [
+    'date_created' => $filter->for('created_at')->date()
+])
+```
+
 
 ## Contributing
 
