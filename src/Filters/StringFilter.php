@@ -21,10 +21,52 @@ class StringFilter implements ModifiesQueries
         if ($search->operator() == 'nin') {
             $query->whereNotIn($search->column(), explode(',', $search->term()));
         }
+        if ($search->operator() == 'lk') {
+            $query->where($search->column(), 'LIKE', $this->prepareLike($search->term()));
+        }
     }
 
+    protected function prepareLike($term)
+    {
+        $prepared = "";
+        for ($i = 0; $i < strlen($term); $i++) {
+            $char = $term[$i];
+            $shouldEscape = $this->shouldEscape($term, $i);
+
+            if ($char == '\\' && !$shouldEscape) {
+                continue;
+            }
+
+            if ($char == '*' && !$shouldEscape) {
+                $prepared .= '%';
+                continue;
+            }
+
+            $prepared .= $char;
+        }
+
+        return $prepared;
+    }
+
+    private function shouldEscape($string, $pos)
+    {
+        if ($pos == 0) {
+            return false;
+        }
+
+        if ($string[$pos-1] == '\\') {
+            if ($this->shouldEscape($string, $pos-1)) {
+                return false;
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+    
     public function operators()
     {
-        return ['eq', 'neq', 'in', 'nin'];
+        return ['eq', 'neq', 'in', 'nin', 'lk'];
     }
 }
