@@ -10,7 +10,7 @@ use UKFast\Sieve\Filters\StringFilter;
 
 class FilterBuilder
 {
-    protected $column;
+    protected ?WrapsFilter $wrapper = null;
 
     public function enum($cols)
     {
@@ -39,7 +39,18 @@ class FilterBuilder
 
     public function for($column)
     {
-        $this->column = $column;
+        return $this->wrap(new MapFilter($column));
+    }
+
+    public function wrap(WrapsFilter $newWrapper)
+    {
+        if ($this->wrapper) {
+            $newWrapper->wrap($this->wrapper);
+            $this->wrapper = $newWrapper;
+            return $this;
+        }
+
+        $this->wrapper = $newWrapper;
         return $this;
     }
 
@@ -49,10 +60,13 @@ class FilterBuilder
      */
     protected function wrapFilter($filter)
     {
-        $wrapped = new WrappedFilter($filter);
-        $wrapped->column = $this->column;
-        $this->column = '';
+        if ($this->wrapper) {
+            $this->wrapper->wrap($filter);
+            $wrapped = $this->wrapper;
+            $this->wrapper = null;
+            return $wrapped;
+        }
 
-        return $wrapped;
+        return $filter;
     }
 }

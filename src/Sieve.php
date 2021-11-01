@@ -40,35 +40,20 @@ class Sieve
     public function apply($queryBuilder)
     {
         foreach ($this->getFilters() as $sieveFilter) {
-            /** @var WrappedFilter */
+            /** @var Filter */
             $filter = $sieveFilter['filter'];
             $property = $sieveFilter['property'];
 
             $sort = $this->request->get("sort");
 
             foreach ($filter->operators() as $operator) {
-
                 if (!$this->request->has("$property:$operator")) {
                     continue;
                 }
 
                 $term = $this->request->get("$property:$operator");
-                
-                $column = $property;
-                if ($filter instanceof WrappedFilter && $filter->column) {
-                    $column = $filter->column;
-                }
-                
-                $search = new SearchTerm($property, $operator, $column, $term);
 
-                if ($filter instanceof WrappedFilter && strpos($filter->column, '.') !== false) {
-                    [$relationship, $relCol] = explode(".", $filter->column);
-                    $relSearch = new SearchTerm($property, $operator, $relCol, $term);
-                    $queryBuilder->whereHas($relationship, function ($query) use ($relSearch, $filter) {
-                        $filter->modifyQuery($query, $relSearch);
-                    });
-                    continue;
-                }
+                $search = new SearchTerm($property, $operator, $property, $term);
                 $filter->modifyQuery($queryBuilder, $search);
             }
 
