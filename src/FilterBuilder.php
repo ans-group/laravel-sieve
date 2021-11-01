@@ -40,6 +40,7 @@ class FilterBuilder
     public function for($column)
     {
         $this->column = $column;
+        return $this;
     }
 
     /**
@@ -49,7 +50,9 @@ class FilterBuilder
     protected function wrapFilter($filter)
     {
         $wrapped = new WrappedFilter($filter);
-        $wrapped->column = $filter;
+        $wrapped->column = $this->column;
         $this->column = '';
+
+        return $wrapped;
     }
 }

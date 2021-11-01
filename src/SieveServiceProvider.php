@@ -18,7 +18,7 @@ class SieveServiceProvider extends ServiceProvider
             $sieve = $app->make(Sieve::class);
             $model->sieve($sieve);
 
-            $sieve->apply($this->getQuery());
+            $sieve->apply($this);
             return $this;
         });
     }

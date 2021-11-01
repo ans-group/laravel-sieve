@@ -18,7 +18,7 @@ class BooleanFilter implements ModifiesQueries
         $this->falseVal = $falseVal;    
     }
 
-    public function modifyQuery(Builder $query, SearchTerm $search)
+    public function modifyQuery($query, SearchTerm $search)
     {
         $op = '=';
         if ($search->operator() == 'neq') {

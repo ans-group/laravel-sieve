@@ -2,7 +2,7 @@
 
 namespace UKFast\Sieve;
 
-use Illuminate\Database\Query\Builder;
+use Illuminate\Database\Eloquent\Builder;
 
 class WrappedFilter implements ModifiesQueries
 {

@@ -47,6 +47,7 @@ class Sieve
             $sort = $this->request->get("sort");
 
             foreach ($filter->operators() as $operator) {
+
                 if (!$this->request->has("$property:$operator")) {
                     continue;
                 }
@@ -63,7 +64,7 @@ class Sieve
                 if ($filter instanceof WrappedFilter && strpos($filter->column, '.') !== false) {
                     [$relationship, $relCol] = explode(".", $filter->column);
                     $relSearch = new SearchTerm($property, $operator, $relCol, $term);
-                    $queryBuilder->whereHas($relationship, function ($query) use ($relCol, $relSearch, $filter) {
+                    $queryBuilder->whereHas($relationship, function ($query) use ($relSearch, $filter) {
                         $filter->modifyQuery($query, $relSearch);
                     });
                     continue;

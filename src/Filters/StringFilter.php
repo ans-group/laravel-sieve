@@ -4,11 +4,10 @@ namespace UKFast\Sieve\Filters;
 
 use UKFast\Sieve\ModifiesQueries;
 use UKFast\Sieve\SearchTerm;
-use Illuminate\Database\Query\Builder;
 
 class StringFilter implements ModifiesQueries
 {
-    public function modifyQuery(Builder $query, SearchTerm $search)
+    public function modifyQuery($query, SearchTerm $search)
     {
         if ($search->operator() == 'eq') {
             $query->where($search->column(), $search->term());

@@ -8,7 +8,7 @@ use Illuminate\Database\Query\Builder;
 
 class DateFilter implements ModifiesQueries
 {
-    public function modifyQuery(Builder $query, SearchTerm $search)
+    public function modifyQuery($query, SearchTerm $search)
     {
         if ($search->operator() == 'eq') {
             $query->where($search->column(), $search->term());

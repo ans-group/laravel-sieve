@@ -16,7 +16,7 @@ class EnumFilter implements ModifiesQueries
         $this->allowedValues = $allowedValues;
     }
 
-    public function modifyQuery(Builder $query, SearchTerm $search)
+    public function modifyQuery($query, SearchTerm $search)
     {
         if ($search->operator() == 'nin' || $search->operator() == 'in') {
             $terms = explode(",", $search->term());

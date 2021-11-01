@@ -4,7 +4,7 @@ namespace UKFast\Sieve\Filters;
 
 use UKFast\Sieve\ModifiesQueries;
 use UKFast\Sieve\SearchTerm;
-use Illuminate\Database\Query\Builder;
+use Illuminate\Database\Eloquent\Builder;
 
 class NumericFilter implements ModifiesQueries
 {
