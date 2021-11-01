@@ -131,6 +131,56 @@ $sieve->configure(fn ($filter) => [
 ])
 ```
 
+## Wrapping Filters
+
+You can easily wrap all the available filters to decorate their behaviour. A good example of this is if your API has some kind of computed property
+
+A very simple example might be you have a `price` property that's stored in pence in the DB, but displayed as pounds in the API (not necessarily good practice, but works for the example) 
+
+We can still filter on this by setting up a wrapper that will modify the consumers query before passing it to the filter:
+
+
+```php
+<?php
+
+class PenceFilter implements WrapsFilter
+{
+    protected $filter;
+
+    public function setFilter($filter)
+    {
+        $this->filter = $filter;
+    }
+
+    public function modifyQuery($query, SearchTerm $search)
+    {
+        $pence = $search->term() * 100;
+         // will do a better API for making new search terms later
+        $newTerm = new SearchTerm($search->property(), $search->operator(), $search->column(), $pence);
+
+        $this->filter->modifyQuery($query, $search);
+    }
+
+    public function operators()
+    {
+        return $this->filter->operators();
+    }
+}
+```
+
+This can be used by doing the following:
+
+```php
+$sieve->configure(fn ($filter) => [
+    'price' => $filter->wrap(new PenceFilter)->numeric(),
+])
+```
+
+Now when the user searches for `price:eq=1.50` the database query will instead be `WHERE price = 150`
+
+It's worth noting that wrap can be called multiple times and the builder will repeatedly re-wrap
+
+
 ## Contributing
 
 We welcome contributions to this package that will be beneficial to the community.
