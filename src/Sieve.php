@@ -47,11 +47,15 @@ class Sieve
             $sort = $this->request->get("sort");
 
             foreach ($filter->operators() as $operator) {
-                if (!$this->request->has("$property:$operator")) {
+                $eqFilter = $operator == 'eq' && $this->request->has($property);
+                if (!$this->request->has("$property:$operator") && !$eqFilter) {
                     continue;
                 }
 
                 $term = $this->request->get("$property:$operator");
+                if ($eqFilter) {
+                    $term = $this->request->get($property);
+                }
 
                 $search = new SearchTerm($property, $operator, $property, $term);
                 $filter->modifyQuery($queryBuilder, $search);
