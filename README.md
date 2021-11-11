@@ -2,7 +2,7 @@
 
 # Laravel Sieve
 
-A library to handle filtering and sortring for your APIs
+A library to handle filtering and sorting for your APIs
 
 Filters like `/pets?name:in=Snoopy,Hobbes` will be applied to your query builder instance and only results matching that criteria will return
 
