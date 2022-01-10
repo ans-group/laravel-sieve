@@ -12,6 +12,8 @@ class FilterBuilder
 {
     protected ?WrapsFilter $wrapper = null;
 
+    protected ?WrapsFilter $lastWrapper = null;
+
     public function enum($cols)
     {
         return $this->wrapFilter(new EnumFilter($cols));
@@ -50,6 +52,7 @@ class FilterBuilder
             return $this;
         }
 
+        $this->lastWrapper = $newWrapper;
         $this->wrapper = $newWrapper;
         return $this;
     }
@@ -61,9 +64,11 @@ class FilterBuilder
     protected function wrapFilter($filter)
     {
         if ($this->wrapper) {
-            $this->wrapper->wrap($filter);
+            $this->lastWrapper->wrap($filter);
             $wrapped = $this->wrapper;
+
             $this->wrapper = null;
+            $this->lastWrapper = null;
             return $wrapped;
         }
 
