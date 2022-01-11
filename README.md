@@ -6,8 +6,23 @@ A library to handle filtering and sorting for your APIs
 
 Filters like `/pets?name:in=Snoopy,Hobbes` will be applied to your query builder instance and only results matching that criteria will return
 
-Sieve uses an expressive API to configure these filters:
+## Installation
 
+First, use composer to require the package as below:
+
+```
+composer require ukfast/laravel-sieve
+```
+
+Then all we need to do is to register the service provider in the `providers` key in ``config/app.php`:
+
+```
+UKFast\Sieve\SieveServiceProvider::class,
+```
+
+## Usage
+
+Sieve uses an expressive API to configure these filters:
 
 ```php
 <?php
