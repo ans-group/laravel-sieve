@@ -44,13 +44,11 @@ class SieveTest extends TestCase
      */
     public function set_default_sort_filter()
     {
-        $request = Request::create('/', 'GET', [
-            'name:in' => 'Snoopy,Hobbes',
-        ]);
+        $request = Request::create('/');
 
-        $seive = new Sieve($request);
-        $seive->setDefaultSort('name','desc');
+        $sieve = new Sieve($request);
+        $sieve->setDefaultSort('name','desc');
 
-        $this->assertEquals($seive->getSort(), 'name:desc');
+        $this->assertEquals($sieve->getSort(), 'name:desc');
     }
 }
