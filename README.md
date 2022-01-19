@@ -68,6 +68,11 @@ Sieve will also allow consumers of your API to specify sort order. You can do th
  * `sort=age:asc`
  * `sort=id:desc`
 
+You can set a default sort using the `setDefaultSort` on the`Sieve` class.
+
+```php
+$sieve->setDefaultSort('name', 'asc')
+```
 ## Available Filters
 
 

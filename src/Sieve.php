@@ -10,6 +10,8 @@ class Sieve
 
     protected $request;
 
+    protected $defaultSort;
+
     public function __construct(Request $request)
     {
         $this->request = $request;
@@ -61,15 +63,26 @@ class Sieve
                 $filter->modifyQuery($queryBuilder, $search);
             }
 
-            if ($sort == "$property:desc") {
+            if ($this->getSort() == "$property:desc") {
                 $queryBuilder->orderBy($property, "desc");
             }
 
-            if ($sort == "$property:asc") {
+            if ($this->getSort() == "$property:asc") {
                 $queryBuilder->orderBy($property, "asc");
             }
         }
 
         return $this;
+    }
+
+    public function setDefaultSort($property='id', $direction='asc'): Sieve
+    {
+        $this->defaultSort = $property.':'.$direction;
+        return $this;
+    }
+
+    public function getSort(): ?string
+    {
+        return $this->request->get("sort") ?? $this->defaultSort;
     }
 }

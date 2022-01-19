@@ -38,4 +38,17 @@ class SieveTest extends TestCase
         ], $where['values']);
         $this->assertEquals('and', $where['boolean']);
     }
+
+    /**
+     * @test
+     */
+    public function set_default_sort_filter()
+    {
+        $request = Request::create('/');
+
+        $sieve = new Sieve($request);
+        $sieve->setDefaultSort('name','desc');
+
+        $this->assertEquals($sieve->getSort(), 'name:desc');
+    }
 }
