@@ -19,14 +19,14 @@ class Sieve
         $this->request = $request;
     }
 
-    public function configure($callback, array $sortable=[])
+    public function configure($callback, array $sortable = [])
     {
         foreach ($callback(new FilterBuilder) as $prop => $filter) {
             $this->addFilter($prop, $filter);
         }
 
         foreach ($sortable as $sort) {
-            $this->sortable[] = $sort;
+            $this->addSort($sort);
         }
     }
 
@@ -75,10 +75,10 @@ class Sieve
         return $this;
     }
 
-    public function setDefaultSort($property='id', $direction='asc'): Sieve
+    public function setDefaultSort($property = 'id', $direction = 'asc'): Sieve
     {
         $this->sortable[] = $property;
-        $this->defaultSort = $property.':'.$direction;
+        $this->defaultSort = $property . ':' . $direction;
 
         return $this;
     }

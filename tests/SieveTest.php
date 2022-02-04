@@ -16,7 +16,7 @@ class SieveTest extends TestCase
     {
         $request = Request::create('/', 'GET', [
             'name:in' => 'Snoopy,Hobbes',
-            'sort' => 'name:desc'
+            'sort'    => 'name:desc'
         ]);
 
         $seive = new Sieve($request);
@@ -86,7 +86,7 @@ class SieveTest extends TestCase
         $request = Request::create('/');
 
         $sieve = new Sieve($request);
-        $sieve->setDefaultSort('name','desc');
+        $sieve->setDefaultSort('name', 'desc');
 
         $this->assertEquals($sieve->getSort(), ['sortBy' => 'name', 'sortDirection' => 'desc']);
     }
@@ -134,7 +134,6 @@ class SieveTest extends TestCase
         $seive->apply($builder);
 
         $this->assertEquals(null, $builder->orders);
-
     }
 
     /**
@@ -155,6 +154,5 @@ class SieveTest extends TestCase
         $seive->apply($builder);
 
         $this->assertEquals(null, $builder->orders);
-
     }
 }
