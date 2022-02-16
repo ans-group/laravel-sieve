@@ -4,7 +4,6 @@ namespace UKFast\Sieve\Filters;
 
 use UKFast\Sieve\ModifiesQueries;
 use UKFast\Sieve\SearchTerm;
-use Illuminate\Database\Query\Builder;
 
 class DateFilter implements ModifiesQueries
 {
