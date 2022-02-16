@@ -5,7 +5,6 @@ namespace UKFast\Sieve\Filters;
 use UKFast\Sieve\Exceptions\InvalidSearchTermException;
 use UKFast\Sieve\ModifiesQueries;
 use UKFast\Sieve\SearchTerm;
-use Illuminate\Database\Query\Builder;
 
 class EnumFilter implements ModifiesQueries
 {
