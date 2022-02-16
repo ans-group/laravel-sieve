@@ -8,19 +8,25 @@ class Sieve
 {
     protected $filters = [];
 
+    protected $sortable = [];
+
     protected $request;
 
-    protected $defaultSort;
+    protected $defaultSort = null;
 
     public function __construct(Request $request)
     {
         $this->request = $request;
     }
 
-    public function configure($callback)
+    public function configure($callback, array $sortable = [])
     {
         foreach ($callback(new FilterBuilder) as $prop => $filter) {
             $this->addFilter($prop, $filter);
+        }
+
+        foreach ($sortable as $sort) {
+            $this->addSort($sort);
         }
     }
 
@@ -46,8 +52,6 @@ class Sieve
             $filter = $sieveFilter['filter'];
             $property = $sieveFilter['property'];
 
-            $sort = $this->request->get("sort");
-
             foreach ($filter->operators() as $operator) {
                 $eqFilter = $operator == 'eq' && $this->request->has($property);
                 if (!$this->request->has("$property:$operator") && !$eqFilter) {
@@ -62,27 +66,43 @@ class Sieve
                 $search = new SearchTerm($property, $operator, $property, $term);
                 $filter->modifyQuery($queryBuilder, $search);
             }
+        }
 
-            if ($this->getSort() == "$property:desc") {
-                $queryBuilder->orderBy($property, "desc");
-            }
-
-            if ($this->getSort() == "$property:asc") {
-                $queryBuilder->orderBy($property, "asc");
-            }
+        if ($sort = $this->getSort()) {
+            $queryBuilder->orderBy($sort['sortBy'], $sort['sortDirection']);
         }
 
         return $this;
     }
 
-    public function setDefaultSort($property='id', $direction='asc'): Sieve
+    public function setDefaultSort($property = 'id', $direction = 'asc'): Sieve
     {
-        $this->defaultSort = $property.':'.$direction;
+        $this->sortable[] = $property;
+        $this->defaultSort = $property . ':' . $direction;
+
         return $this;
     }
 
-    public function getSort(): ?string
+    public function addSort(string $sort)
     {
-        return $this->request->get("sort") ?? $this->defaultSort;
+        $this->sortable[] = $sort;
+    }
+
+    public function getSort(): ?array
+    {
+        $sort = $this->request->get("sort") ?? $this->defaultSort ?? ':';
+
+        list($sortBy, $sortDirection) = explode(':', $sort, 2);
+
+        if ((in_array(strtolower($sortDirection), ['asc', 'desc'])) && (in_array($sortBy, $this->sortable))) {
+            return compact('sortBy', 'sortDirection');
+        }
+
+        return null;
+    }
+
+    public function getSortable(): array
+    {
+        return $this->sortable;
     }
 }
