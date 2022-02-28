@@ -63,6 +63,27 @@ By default, if no operator is specified, it will default to `eq` so `name=Bob` w
 
 ## Sorting
 
+You can set the fields that can be sortable when setting up your model.  
+You can pass an array of fields as the second parameter of configure.  
+It does not have to match the filterable, allowing total control.
+
+```php
+<?php
+
+class Pet extends Model implements Searchable
+{
+    public function sieve(Sieve $sieve)
+    {
+        $sieve->configure(fn ($filter) => [
+             'name' => $filter->string(),
+             'breed' => $filter->enum(['Beagle', 'Tiger']),
+          ],
+          ['name']       
+        );
+    }
+}
+```
+
 Sieve will also allow consumers of your API to specify sort order. You can do this by `sort=property:direction`
 
  * `sort=age:asc`
