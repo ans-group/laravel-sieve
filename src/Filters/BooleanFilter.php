@@ -4,6 +4,7 @@ namespace UKFast\Sieve\Filters;
 
 use Illuminate\Database\Query\Builder;
 use UKFast\Sieve\ModifiesQueries;
+use UKFast\Sieve\SearchTerm;
 
 class BooleanFilter implements ModifiesQueries
 {
