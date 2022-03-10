@@ -39,6 +39,11 @@ class FilterBuilder
         return $this->wrapFilter(new BooleanFilter($trueVal, $falseVal));
     }
 
+    public function custom($filter)
+    {
+        return $this->wrapFilter($filter);
+    }
+
     public function for($column)
     {
         return $this->wrap(new MapFilter($column));
