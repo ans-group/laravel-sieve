@@ -18,6 +18,16 @@ class MapFilter implements WrapsFilter
         $this->filter = $filter;
     }
 
+    public function getWrapped(): ModifiesQueries
+    {
+        return $this->filter;
+    }
+
+    public function target()
+    {
+        return $this->column;
+    }
+
     public function modifyQuery($query, SearchTerm $search)
     {
         if (strpos($this->column, '.') !== false) {
