@@ -72,4 +72,17 @@ class StringFilterTest extends TestCase
         $this->assertEquals('NotIn', $where['type']);
         $this->assertEquals(['Bob', 'James'], $where['values']);
     }
+
+    /**
+     * @test
+     */
+    public function correctly_applies_lk_operator()
+    {
+        $search = new SearchTerm('name', 'lk', 'name', '*t\\\\est\\*');
+        $builder = app(Builder::class);
+
+        (new StringFilter)->modifyQuery($builder, $search);
+        $this->assertEquals('select * where "name" LIKE ?', $builder->toSql());
+        $this->assertEquals(['%t\est*'], $builder->getBindings());
+    }
 }

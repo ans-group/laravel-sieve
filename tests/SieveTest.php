@@ -4,6 +4,7 @@ namespace Tests;
 
 use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
+use Tests\Mocks\Pet;
 use UKFast\Sieve\Filters\StringFilter;
 use UKFast\Sieve\Sieve;
 
@@ -20,62 +21,20 @@ class SieveTest extends TestCase
         ]);
 
         $seive = new Sieve($request);
-        $seive->addFilter('name', new StringFilter);
-        $seive->addSort('name');
-
-        /** @var Builder */
-        $builder = $this->app->make(Builder::class);
-
-        $seive->apply($builder);
-
-        $this->assertEquals(1, count($builder->wheres));
-
-        $where = $builder->wheres[0];
-
-        $this->assertEquals('In', $where['type']);
-        $this->assertEquals('name', $where['column']);
-        $this->assertEquals([
-            'Snoopy',
-            'Hobbes',
-        ], $where['values']);
-        $this->assertEquals('and', $where['boolean']);
-
-        $this->assertEquals(1, count($builder->orders));
-
-        $order = $builder->orders[0];
-
-        $this->assertEquals('name', $order['column']);
-        $this->assertEquals('desc', $order['direction']);
-    }
-
-    /**
-     * @test
-     */
-    public function applies_sieve_filters_to_a_query_builder()
-    {
-        $request = Request::create('/', 'GET', [
-            'name:in' => 'Snoopy,Hobbes',
+        $seive->configure(fn ($builder) => [
+            'name' => $builder->string(),
         ]);
 
-        $seive = new Sieve($request);
-        $seive->addFilter('name', new StringFilter);
-
         /** @var Builder */
         $builder = $this->app->make(Builder::class);
+        $builder->from('pets');
 
         $seive->apply($builder);
 
-        $this->assertEquals(1, count($builder->wheres));
-
-        $where = $builder->wheres[0];
-
-        $this->assertEquals('In', $where['type']);
-        $this->assertEquals('name', $where['column']);
-        $this->assertEquals([
-            'Snoopy',
-            'Hobbes',
-        ], $where['values']);
-        $this->assertEquals('and', $where['boolean']);
+        $this->assertEquals(
+            'select * from "pets" where "name" in (?, ?) order by "name" desc',
+            $builder->toSql()
+        );
     }
 
     /**
@@ -88,32 +47,31 @@ class SieveTest extends TestCase
         $sieve = new Sieve($request);
         $sieve->setDefaultSort('name', 'desc');
 
-        $this->assertEquals($sieve->getSort(), ['sortBy' => 'name', 'sortDirection' => 'desc']);
+        $this->assertEquals($sieve->getSort(), 'name:desc');
     }
 
     /**
      * @test
      */
-    public function applies_sieve_sorts_to_a_query_builder()
+    public function applies_sieve_sorts_to_a_query_builder_asc()
     {
         $request = Request::create('/', 'GET', [
-            'sort' => 'name:desc',
+            'sort' => 'name:asc',
         ]);
 
         $seive = new Sieve($request);
-        $seive->addSort('name');
+        $seive->addFilter('name', new StringFilter);
 
         /** @var Builder */
         $builder = $this->app->make(Builder::class);
+        $builder->from('pets');
 
         $seive->apply($builder);
 
-        $this->assertEquals(1, count($builder->orders));
-
-        $order = $builder->orders[0];
-
-        $this->assertEquals('name', $order['column']);
-        $this->assertEquals('desc', $order['direction']);
+        $this->assertEquals(
+            'select * from "pets" order by "name" asc',
+            $builder->toSql()
+        );
     }
 
     /**
@@ -126,7 +84,6 @@ class SieveTest extends TestCase
         ]);
 
         $seive = new Sieve($request);
-        $seive->addSort('id');
 
         /** @var Builder */
         $builder = $this->app->make(Builder::class);
@@ -146,7 +103,7 @@ class SieveTest extends TestCase
         ]);
 
         $seive = new Sieve($request);
-        $seive->addSort('name');
+        $seive->addFilter('name', new StringFilter);
 
         /** @var Builder */
         $builder = $this->app->make(Builder::class);
@@ -154,5 +111,82 @@ class SieveTest extends TestCase
         $seive->apply($builder);
 
         $this->assertEquals(null, $builder->orders);
+    }
+
+    /**
+     * @test
+     */
+    public function expands_no_eplicit_operator_to_eq()
+    {
+        $request = Request::create('/', 'GET', [
+            'name' => 'Snoopy',
+        ]);
+
+        $seive = new Sieve($request);
+        $seive->configure(fn ($builder) => [
+            'name' => $builder->string(),
+        ]);
+
+        /** @var Builder */
+        $builder = $this->app->make(Builder::class);
+        $builder->from('pets');
+
+        $seive->apply($builder);
+
+        $this->assertEquals(
+            'select * from "pets" where "name" = ?',
+            $builder->toSql()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function sorts_can_be_remapped()
+    {
+        $request = Request::create('/', 'GET', [
+            'sort' => 'name:asc',
+        ]);
+
+        $seive = new Sieve($request);
+        $seive->configure(fn ($builder) => [
+            'name' => $builder->for('pname')->string(),
+        ]);
+
+        /** @var Builder */
+        $builder = Pet::query();
+
+        $seive->apply($builder);
+
+        $this->assertEquals(
+            'select * from `pets` order by `pname` asc',
+            $builder->toSql()
+        );
+    }
+
+    /**
+     * Not figured out a good way to do this with eloquent yet
+     * @test
+     */
+    public function ignores_sorts_on_relationships()
+    {
+        $request = Request::create('/', 'GET', [
+            'sort' => 'owner_name:asc',
+        ]);
+
+        $seive = new Sieve($request);
+        $seive->configure(fn ($builder) => [
+            'owner_name' => $builder->for('owner.name')->string(),
+        ]);
+
+        /** @var Builder */
+        $builder = Pet::query();
+
+        $seive->apply($builder);
+
+        $this->assertEquals(
+            'select * from `pets`',
+            $builder->toSql()
+        );
     }
 }

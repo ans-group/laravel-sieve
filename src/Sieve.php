@@ -8,8 +8,6 @@ class Sieve
 {
     protected $filters = [];
 
-    protected $sortable = [];
-
     protected $request;
 
     protected $defaultSort = null;
@@ -19,25 +17,16 @@ class Sieve
         $this->request = $request;
     }
 
-    public function configure($callback, array $sortable = [])
+    public function configure($callback)
     {
         foreach ($callback(new FilterBuilder) as $prop => $filter) {
             $this->addFilter($prop, $filter);
-        }
-
-        foreach ($sortable as $sort) {
-            $this->addSort($sort);
         }
     }
 
     public function addFilter($property, $filter)
     {
         $this->filters[] = compact('property', 'filter');
-    }
-
-    public function filters()
-    {
-        return new FilterBuilder;
     }
 
     public function getFilters()
@@ -66,13 +55,36 @@ class Sieve
                 $search = new SearchTerm($property, $operator, $property, $term);
                 $filter->modifyQuery($queryBuilder, $search);
             }
-        }
 
-        if ($sort = $this->getSort()) {
-            $queryBuilder->orderBy($sort['sortBy'], $sort['sortDirection']);
+            $column = $property;
+            while ($filter instanceof WrapsFilter) {
+                if ($filter instanceof MapFilter) {
+                    $column = $filter->target();
+                    break;
+                }
+
+                $filter = $filter->getWrapped();
+            }
+
+            if (strpos($column, ".") !== false) {
+                continue;
+            }
+
+            if ($this->getSort() == "$property:desc") {
+                $queryBuilder->orderBy($column, "desc");
+            }
+
+            if ($this->getSort() == "$property:asc") {
+                $queryBuilder->orderBy($column, "asc");
+            }
         }
 
         return $this;
+    }
+
+    public function getSort(): ?string
+    {
+        return $this->request->get("sort") ?? $this->defaultSort;
     }
 
     public function setDefaultSort($property = 'id', $direction = 'asc'): Sieve
@@ -83,26 +95,5 @@ class Sieve
         return $this;
     }
 
-    public function addSort(string $sort)
-    {
-        $this->sortable[] = $sort;
-    }
-
-    public function getSort(): ?array
-    {
-        $sort = $this->request->get("sort") ?? $this->defaultSort ?? ':';
-
-        list($sortBy, $sortDirection) = explode(':', $sort, 2);
-
-        if ((in_array(strtolower($sortDirection), ['asc', 'desc'])) && (in_array($sortBy, $this->sortable))) {
-            return compact('sortBy', 'sortDirection');
-        }
-
-        return null;
-    }
-
-    public function getSortable(): array
-    {
-        return $this->sortable;
-    }
+    
 }
