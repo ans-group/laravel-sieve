@@ -21,7 +21,10 @@ class MapFilter implements WrapsFilter
     public function modifyQuery($query, SearchTerm $search)
     {
         if (strpos($this->column, '.') !== false) {
-            [$relationship, $relCol] = explode(".", $this->column);
+            $parts = explode(".", $this->column);
+            $relCol = array_pop($parts);
+            $relationship = implode(".", $parts);
+
             $relSearch = new SearchTerm(
                 $search->property(),
                 $search->operator(),
