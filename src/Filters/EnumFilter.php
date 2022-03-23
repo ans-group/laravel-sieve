@@ -17,32 +17,21 @@ class EnumFilter implements ModifiesQueries
 
     public function modifyQuery($query, SearchTerm $search)
     {
+        $terms = [$search->term()];
         if ($search->operator() == 'nin' || $search->operator() == 'in') {
             $terms = explode(",", $search->term());
-            foreach ($terms as $term) {
-                if (!in_array($term, $this->allowedValues())) {
-                    throw new InvalidSearchTermException(
-                        "{$search->property()} must be one of " . implode(", ", $this->allowedValues)
-                    );
-                }
+        }
+        foreach ($terms as $term) {
+            if (!in_array($term, $this->allowedValues())) {
+                $exception = new InvalidSearchTermException(
+                    "{$search->property()} must be one of " . implode(", ", $this->allowedValues)
+                );
+                $exception->allowedValues = $this->allowedValues;
+                throw $exception;
             }
         }
-
-        if ($search->operator() == 'eq') {
-            $query->where($search->column(), $search->term());
-        }
-
-        if ($search->operator() == 'neq') {
-            $query->where($search->column(), '!=', $search->term());
-        }
-
-        if ($search->operator() == 'in') {
-            $query->whereIn($search->column(), explode(',', $search->term()));
-        }
-
-        if ($search->operator() == 'nin') {
-            $query->whereNotIn($search->column(), explode(',', $search->term()));
-        }
+        
+        (new StringFilter)->modifyQuery($query, $search);
     }
 
     public function operators()
