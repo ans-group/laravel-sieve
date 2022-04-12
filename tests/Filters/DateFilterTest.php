@@ -18,7 +18,7 @@ class DateFilterTest extends TestCase
         
         $this->assertEquals(
             "select * from `pets` where `created_at` = ?",
-            $query->toSql(),
+            $query->toSql()
         );
     }
 
@@ -32,7 +32,7 @@ class DateFilterTest extends TestCase
         
         $this->assertEquals(
             "select * from `pets` where `created_at` != ?",
-            $query->toSql(),
+            $query->toSql()
         );
     }
 
@@ -51,7 +51,7 @@ class DateFilterTest extends TestCase
         
         $this->assertEquals(
             "select * from `pets` where `created_at` in (?, ?, ?)",
-            $query->toSql(),
+            $query->toSql()
         );
     }
 
@@ -70,7 +70,7 @@ class DateFilterTest extends TestCase
         
         $this->assertEquals(
             "select * from `pets` where `created_at` not in (?, ?, ?)",
-            $query->toSql(),
+            $query->toSql()
         );
     }
 
@@ -84,7 +84,7 @@ class DateFilterTest extends TestCase
         
         $this->assertEquals(
             "select * from `pets` where `created_at` < ?",
-            $query->toSql(),
+            $query->toSql()
         );
     }
 
@@ -98,7 +98,7 @@ class DateFilterTest extends TestCase
         
         $this->assertEquals(
             "select * from `pets` where `created_at` > ?",
-            $query->toSql(),
+            $query->toSql()
         );
     }
 
@@ -112,7 +112,7 @@ class DateFilterTest extends TestCase
 
         $this->assertEquals(
             "select * from `pets` where `created_at` is null",
-            $query->toSql(),
+            $query->toSql()
         );
     }
 
@@ -126,7 +126,7 @@ class DateFilterTest extends TestCase
 
         $this->assertEquals(
             "select * from `pets` where `created_at` is not null",
-            $query->toSql(),
+            $query->toSql()
         );
     }
 
