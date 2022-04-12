@@ -10,10 +10,18 @@ class DateFilter implements ModifiesQueries
     public function modifyQuery($query, SearchTerm $search)
     {
         if ($search->operator() == 'eq') {
-            $query->where($search->column(), $search->term());
+            if ($search->term() == 'null') {
+                $query->whereNull($search->column());
+            } else {
+                $query->where($search->column(), $search->term());
+            }
         }
         if ($search->operator() == 'neq') {
-            $query->where($search->column(), '!=', $search->term());
+            if ($search->term() == 'null') {
+                $query->whereNotNull($search->column());
+            } else {
+                $query->whereNot($search->column(), $search->term());
+            }
         }
         if ($search->operator() == 'in') {
             $query->whereIn($search->column(), explode(',', $search->term()));
