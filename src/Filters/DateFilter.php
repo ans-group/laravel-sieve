@@ -20,7 +20,7 @@ class DateFilter implements ModifiesQueries
             if ($search->term() == 'null') {
                 $query->whereNotNull($search->column());
             } else {
-                $query->whereNot($search->column(), $search->term());
+                $query->where($search->column(), '!=', $search->term());
             }
         }
         if ($search->operator() == 'in') {

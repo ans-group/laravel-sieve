@@ -31,7 +31,7 @@ class DateFilterTest extends TestCase
         (new DateFilter)->modifyQuery($query, $this->searchTerm('neq', '2020-01-01T00:00:00+00:00'));
         
         $this->assertEquals(
-            "select * from `pets` where not `created_at` = ?",
+            "select * from `pets` where `created_at` != ?",
             $query->toSql(),
         );
     }
