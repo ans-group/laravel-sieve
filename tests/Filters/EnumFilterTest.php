@@ -43,7 +43,7 @@ class EnumFilterTest extends TestCase
 
         $this->assertEquals(
             'select * from "pets" where "letter" = ?',
-            $query->toSql(),
+            $query->toSql()
         );
     }
 }
