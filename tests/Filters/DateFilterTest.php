@@ -31,7 +31,7 @@ class DateFilterTest extends TestCase
         (new DateFilter)->modifyQuery($query, $this->searchTerm('neq', '2020-01-01T00:00:00+00:00'));
         
         $this->assertEquals(
-            "select * from `pets` where `created_at` != ?",
+            "select * from `pets` where not `created_at` = ?",
             $query->toSql(),
         );
     }
@@ -108,7 +108,7 @@ class DateFilterTest extends TestCase
     public function can_filter_null_by_eq()
     {
         $query = Pet::query()->getQuery();
-        (new DateFilter)->modifyQuery($query, $this->searchTerm('eq', null));
+        (new DateFilter)->modifyQuery($query, $this->searchTerm('eq', 'null'));
 
         $this->assertEquals(
             "select * from `pets` where `created_at` is null",
@@ -122,7 +122,7 @@ class DateFilterTest extends TestCase
     public function can_filter_null_by_neq()
     {
         $query = Pet::query()->getQuery();
-        (new DateFilter)->modifyQuery($query, $this->searchTerm('neq', null));
+        (new DateFilter)->modifyQuery($query, $this->searchTerm('neq', 'null'));
 
         $this->assertEquals(
             "select * from `pets` where `created_at` is not null",
