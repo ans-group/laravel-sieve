@@ -18,7 +18,7 @@ class DateFilterTest extends TestCase
         
         $this->assertEquals(
             "select * from `pets` where `created_at` = ?",
-            $query->toSql(),
+            $query->toSql()
         );
     }
 
@@ -32,7 +32,7 @@ class DateFilterTest extends TestCase
         
         $this->assertEquals(
             "select * from `pets` where `created_at` != ?",
-            $query->toSql(),
+            $query->toSql()
         );
     }
 
@@ -51,7 +51,7 @@ class DateFilterTest extends TestCase
         
         $this->assertEquals(
             "select * from `pets` where `created_at` in (?, ?, ?)",
-            $query->toSql(),
+            $query->toSql()
         );
     }
 
@@ -70,7 +70,7 @@ class DateFilterTest extends TestCase
         
         $this->assertEquals(
             "select * from `pets` where `created_at` not in (?, ?, ?)",
-            $query->toSql(),
+            $query->toSql()
         );
     }
 
@@ -84,7 +84,7 @@ class DateFilterTest extends TestCase
         
         $this->assertEquals(
             "select * from `pets` where `created_at` < ?",
-            $query->toSql(),
+            $query->toSql()
         );
     }
 
@@ -98,7 +98,35 @@ class DateFilterTest extends TestCase
         
         $this->assertEquals(
             "select * from `pets` where `created_at` > ?",
-            $query->toSql(),
+            $query->toSql()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function can_filter_null_by_eq()
+    {
+        $query = Pet::query()->getQuery();
+        (new DateFilter)->modifyQuery($query, $this->searchTerm('eq', 'null'));
+
+        $this->assertEquals(
+            "select * from `pets` where `created_at` is null",
+            $query->toSql()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function can_filter_null_by_neq()
+    {
+        $query = Pet::query()->getQuery();
+        (new DateFilter)->modifyQuery($query, $this->searchTerm('neq', 'null'));
+
+        $this->assertEquals(
+            "select * from `pets` where `created_at` is not null",
+            $query->toSql()
         );
     }
 
