@@ -93,7 +93,7 @@ class SieveTest extends TestCase
         $seive->apply($builder);
 
         $this->assertEquals(
-            'select * from "pets" order by ISNULL("name") asc, "name" asc',
+            'select * from "pets" order by ISNULL(name) asc, "name" asc',
             $builder->toSql()
         );
     }
@@ -117,7 +117,7 @@ class SieveTest extends TestCase
         $seive->apply($builder);
 
         $this->assertEquals(
-            'select * from "pets" order by ISNULL("name") desc, "name" desc',
+            'select * from "pets" order by ISNULL(name) desc, "name" desc',
             $builder->toSql()
         );
     }
