@@ -89,6 +89,13 @@ Sieve will also allow consumers of your API to specify sort order. You can do th
  * `sort=age:asc`
  * `sort=id:desc`
 
+By default, MySQL will sort `null` values first for ascending sorts and last for descending sorts. Depending on the context
+of the column this may not be the desired functionality. You can change this using the following URL queries:
+
+* `sort=priority:asc_nulls_last`
+* `sort=priority:desc_nulls_first`
+
+
 You can set a default sort using the `setDefaultSort` on the`Sieve` class.
 
 ```php
