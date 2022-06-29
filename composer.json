@@ -1,5 +1,5 @@
 {
-    "name": "ukfast/laravel-sieve",
+    "name": "ans-group/laravel-sieve",
     "description": "A library for filtering eloquent queries",
     "type": "library",
     "license": "MIT",
