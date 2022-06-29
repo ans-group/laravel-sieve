@@ -81,12 +81,12 @@ class Sieve
             }
 
             if ($this->getSort() == "$property:asc_nulls_last") {
-                $queryBuilder->orderByRaw("ISNULL(\"$column\") asc")
+                $queryBuilder->orderByRaw("ISNULL($column) asc")
                     ->orderBy($column, 'asc');
             }
 
             if ($this->getSort() == "$property:desc_nulls_first") {
-                $queryBuilder->orderByRaw("ISNULL(\"$column\") desc")
+                $queryBuilder->orderByRaw("ISNULL($column) desc")
                     ->orderBy($column, 'desc');
             }
         }
