@@ -12,6 +12,8 @@ class Sieve
 
     protected $defaultSort = null;
 
+    protected $sortable = [];
+
     public function __construct(Request $request)
     {
         $this->request = $request;
@@ -37,7 +39,7 @@ class Sieve
     public function apply($queryBuilder)
     {
         foreach ($this->getFilters() as $sieveFilter) {
-            /** @var Filter */
+            /** @var ModifiesQueries */
             $filter = $sieveFilter['filter'];
             $property = $sieveFilter['property'];
 
@@ -76,6 +78,16 @@ class Sieve
 
             if ($this->getSort() == "$property:asc") {
                 $queryBuilder->orderBy($column, "asc");
+            }
+
+            if ($this->getSort() == "$property:asc_nulls_last") {
+                $queryBuilder->orderByRaw("ISNULL(\"$column\") asc")
+                    ->orderBy($column, 'asc');
+            }
+
+            if ($this->getSort() == "$property:desc_nulls_first") {
+                $queryBuilder->orderByRaw("ISNULL(\"$column\") desc")
+                    ->orderBy($column, 'desc');
             }
         }
 

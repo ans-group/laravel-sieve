@@ -77,6 +77,54 @@ class SieveTest extends TestCase
     /**
      * @test
      */
+    public function applies_sieve_sorts_to_a_query_builder_asc_nulls_last()
+    {
+        $request = Request::create('/', 'GET', [
+            'sort' => 'name:asc_nulls_last',
+        ]);
+
+        $seive = new Sieve($request);
+        $seive->addFilter('name', new StringFilter);
+
+        /** @var Builder */
+        $builder = $this->app->make(Builder::class);
+        $builder->from('pets');
+
+        $seive->apply($builder);
+
+        $this->assertEquals(
+            'select * from "pets" order by ISNULL("name") asc, "name" asc',
+            $builder->toSql()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function applies_sieve_sorts_to_a_query_builder_desc_nulls_first()
+    {
+        $request = Request::create('/', 'GET', [
+            'sort' => 'name:desc_nulls_first',
+        ]);
+
+        $seive = new Sieve($request);
+        $seive->addFilter('name', new StringFilter);
+
+        /** @var Builder */
+        $builder = $this->app->make(Builder::class);
+        $builder->from('pets');
+
+        $seive->apply($builder);
+
+        $this->assertEquals(
+            'select * from "pets" order by ISNULL("name") desc, "name" desc',
+            $builder->toSql()
+        );
+    }
+
+    /**
+     * @test
+     */
     public function ignores_undefined_sort()
     {
         $request = Request::create('/', 'GET', [
