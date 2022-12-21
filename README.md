@@ -56,7 +56,7 @@ class PetController extends Controller
 Filters are done in the query parameters with the format `property:operator=term`, for example
 
  * `name:eq=Bob` - WHERE name = 'Bob'
- * `age:lt=20` - WHERE age < 10
+ * `age:lt=20` - WHERE age < 20
  * `employed:eq=true` - WHERE employed = 1
 
 By default, if no operator is specified, it will default to `eq` so `name=Bob` will expand to `name:eq=Bob`
