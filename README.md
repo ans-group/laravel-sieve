@@ -14,7 +14,9 @@ First, use composer to require the package as below:
 composer require ukfast/laravel-sieve
 ```
 
-Then all we need to do is to register the service provider in the `providers` key in ``config/app.php`:
+In Laravel the service provider will be automatically discovered.
+
+If you are using Lumen you will need to register the service provider in the `providers` key in `config/app.php`:
 
 ```
 UKFast\Sieve\SieveServiceProvider::class,
