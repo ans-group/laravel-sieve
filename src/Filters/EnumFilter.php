@@ -27,6 +27,7 @@ class EnumFilter implements ModifiesQueries
                     "{$search->property()} must be one of " . implode(", ", $this->allowedValues)
                 );
                 $exception->allowedValues = $this->allowedValues;
+                $exception->property = $search->property();
                 throw $exception;
             }
         }
