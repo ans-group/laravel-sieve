@@ -25,6 +25,7 @@ class EnumFilterTest extends TestCase
             $filter->modifyQuery($query, $search);
         } catch (InvalidSearchTermException $e) {
             $this->assertEquals(['a', 'b', 'c'], $e->allowedValues);
+            $this->assertEquals('letter', $e->property);
             throw $e;
         }
     }
