@@ -11,7 +11,7 @@ Filters like `/pets?name:in=Snoopy,Hobbes` will be applied to your query builder
 First, use composer to require the package as below:
 
 ```
-composer require ukfast/laravel-sieve
+composer require ans-group/laravel-sieve
 ```
 
 In Laravel the service provider will be automatically discovered.
