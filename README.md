@@ -91,6 +91,11 @@ Sieve will also allow consumers of your API to specify sort order. You can do th
  * `sort=age:asc`
  * `sort=id:desc`
 
+If you do not specify a direction (for instance `sort=age`) then the sorting will be carried out in ascending order. 
+
+You can specify more than one column to sort by as a comma separated list. These will be applied in the order given.
+For instance `sort=age:asc,name:asc` will return people in age order, then alphabetically.
+
 By default, MySQL will sort `null` values first for ascending sorts and last for descending sorts. Depending on the context
 of the column this may not be the desired functionality. You can change this using the following URL queries:
 

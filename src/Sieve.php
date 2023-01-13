@@ -72,22 +72,25 @@ class Sieve
                 continue;
             }
 
-            if ($this->getSort() == "$property:desc") {
-                $queryBuilder->orderBy($column, "desc");
-            }
+            $sorts = explode(',', $this->getSort());
+            foreach ($sorts as $sort) {
+                if ($sort == "$property:desc") {
+                    $queryBuilder->orderBy($column, "desc");
+                }
 
-            if ($this->getSort() == "$property:asc") {
-                $queryBuilder->orderBy($column, "asc");
-            }
+                if ($sort == "$property:asc" || $sort == $property) {
+                    $queryBuilder->orderBy($column, "asc");
+                }
 
-            if ($this->getSort() == "$property:asc_nulls_last") {
-                $queryBuilder->orderByRaw("ISNULL($column) asc")
-                    ->orderBy($column, 'asc');
-            }
+                if ($sort == "$property:asc_nulls_last") {
+                    $queryBuilder->orderByRaw("ISNULL($column) asc")
+                        ->orderBy($column, 'asc');
+                }
 
-            if ($this->getSort() == "$property:desc_nulls_first") {
-                $queryBuilder->orderByRaw("ISNULL($column) desc")
-                    ->orderBy($column, 'desc');
+                if ($sort == "$property:desc_nulls_first") {
+                    $queryBuilder->orderByRaw("ISNULL($column) desc")
+                        ->orderBy($column, 'desc');
+                }
             }
         }
 
