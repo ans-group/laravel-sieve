@@ -53,6 +53,30 @@ class SieveTest extends TestCase
     /**
      * @test
      */
+    public function applies_sieve_sorts_to_a_query_builder_asc_by_default()
+    {
+        $request = Request::create('/', 'GET', [
+            'sort' => 'name',
+        ]);
+
+        $seive = new Sieve($request);
+        $seive->addFilter('name', new StringFilter);
+
+        /** @var Builder */
+        $builder = $this->app->make(Builder::class);
+        $builder->from('pets');
+
+        $seive->apply($builder);
+
+        $this->assertEquals(
+            'select * from "pets" order by "name" asc',
+            $builder->toSql()
+        );
+    }
+
+    /**
+     * @test
+     */
     public function applies_sieve_sorts_to_a_query_builder_asc()
     {
         $request = Request::create('/', 'GET', [
@@ -118,6 +142,56 @@ class SieveTest extends TestCase
 
         $this->assertEquals(
             'select * from "pets" order by ISNULL(name) desc, "name" desc',
+            $builder->toSql()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function allows_multiple_columns_to_be_ordered()
+    {
+        $request = Request::create('/', 'GET', [
+            'sort' => 'type:asc,name:desc',
+        ]);
+
+        $seive = new Sieve($request);
+        $seive->addFilter('type', new StringFilter);
+        $seive->addFilter('name', new StringFilter);
+
+        /** @var Builder */
+        $builder = $this->app->make(Builder::class);
+        $builder->from('pets');
+
+        $seive->apply($builder);
+
+        $this->assertEquals(
+            'select * from "pets" order by "type" asc, "name" desc',
+            $builder->toSql()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function allows_multiple_columns_to_be_ordered_including_a_null_column()
+    {
+        $request = Request::create('/', 'GET', [
+            'sort' => 'type:asc,name:desc_nulls_first',
+        ]);
+
+        $seive = new Sieve($request);
+        $seive->addFilter('type', new StringFilter);
+        $seive->addFilter('name', new StringFilter);
+
+        /** @var Builder */
+        $builder = $this->app->make(Builder::class);
+        $builder->from('pets');
+
+        $seive->apply($builder);
+
+        $this->assertEquals(
+            'select * from "pets" order by "type" asc, ISNULL(name) desc, "name" desc',
             $builder->toSql()
         );
     }
