@@ -20,8 +20,8 @@ class SieveTest extends TestCase
             'sort'    => 'name:desc'
         ]);
 
-        $seive = new Sieve($request);
-        $seive->configure(fn ($builder) => [
+        $sieve = new Sieve($request);
+        $sieve->configure(fn ($builder) => [
             'name' => $builder->string(),
         ]);
 
@@ -29,7 +29,7 @@ class SieveTest extends TestCase
         $builder = $this->app->make(Builder::class);
         $builder->from('pets');
 
-        $seive->apply($builder);
+        $sieve->apply($builder);
 
         $this->assertEquals(
             'select * from "pets" where "name" in (?, ?) order by "name" desc',
@@ -48,6 +48,17 @@ class SieveTest extends TestCase
         $sieve->setDefaultSort('name', 'desc');
 
         $this->assertEquals($sieve->getSort(), 'name:desc');
+
+        /** @var Builder */
+        $builder = $this->app->make(Builder::class);
+        $builder->from('pets');
+
+        $sieve->apply($builder);
+
+        $this->assertEquals(
+            'select * from "pets" order by "name" desc',
+            $builder->toSql()
+        );
     }
 
     /**
@@ -192,6 +203,31 @@ class SieveTest extends TestCase
 
         $this->assertEquals(
             'select * from "pets" order by "type" asc, ISNULL(name) desc, "name" desc',
+            $builder->toSql()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function applies_order_by_in_order_when_sieve_config_order_is_different()
+    {
+        $request = Request::create('/', 'GET', [
+            'sort' => 'type:asc,name:desc',
+        ]);
+
+        $seive = new Sieve($request);
+        $seive->addFilter('name', new StringFilter);
+        $seive->addFilter('type', new StringFilter);
+
+        /** @var Builder */
+        $builder = $this->app->make(Builder::class);
+        $builder->from('pets');
+
+        $seive->apply($builder);
+
+        $this->assertEquals(
+            'select * from "pets" order by "type" asc, "name" desc',
             $builder->toSql()
         );
     }
