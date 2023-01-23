@@ -103,7 +103,8 @@ of the column this may not be the desired functionality. You can change this usi
 * `sort=priority:desc_nulls_first`
 
 
-You can set a default sort using the `setDefaultSort` on the`Sieve` class.
+You can set a default sort using the `setDefaultSort` on the`Sieve` class. The default sort uses the database column
+name rather than the mapped property name, meaning you can use the default sort property without having a map set up.
 
 ```php
 $sieve->setDefaultSort('name', 'asc')
