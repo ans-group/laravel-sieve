@@ -16,10 +16,10 @@ composer require ans-group/laravel-sieve
 
 In Laravel the service provider will be automatically discovered.
 
-If you are using Lumen you will need to register the service provider in the `providers` key in `config/app.php`:
+If you are using Lumen you will need to register the service provider in the "Register Service Providers" section of `bootstrap/app.php`:
 
 ```
-UKFast\Sieve\SieveServiceProvider::class,
+$app->register(UKFast\Sieve\SieveServiceProvider::class);
 ```
 
 ## Usage
