@@ -16,7 +16,7 @@ class BooleanFilterTest extends TestCase
     {
         $filter = new BooleanFilter;
         $builder = Pet::query()->getQuery();
-        $filter->modifyQuery($builder, $this->searchTerm('eq', true));
+        $filter->modifyQuery($builder, $this->searchTerm('eq', 'true'));
 
         $this->assertEquals(
             "select * from `pets` where `is_active` = ?",
@@ -32,7 +32,7 @@ class BooleanFilterTest extends TestCase
     {
         $filter = new BooleanFilter;
         $builder = Pet::query()->getQuery();
-        $filter->modifyQuery($builder, $this->searchTerm('neq', true));
+        $filter->modifyQuery($builder, $this->searchTerm('neq', 'true'));
 
         $this->assertEquals(
             "select * from `pets` where `is_active` != ?",
@@ -46,16 +46,31 @@ class BooleanFilterTest extends TestCase
      */
     public function can_override_true_and_false_val()
     {
-
         $filter = new BooleanFilter('yes', 'no');
         $builder = Pet::query()->getQuery();
-        $filter->modifyQuery($builder, $this->searchTerm('eq', true));
+        $filter->modifyQuery($builder, $this->searchTerm('eq', 'true'));
 
         $this->assertEquals(
             "select * from `pets` where `is_active` = ?",
             $builder->toSql()
         );
         $this->assertEquals(['yes'], $builder->getBindings());
+    }
+
+    /**
+     * @test
+     */
+    public function can_handle_false_in_url_string_as_boolean()
+    {
+        $filter = new BooleanFilter;
+        $builder = Pet::query()->getQuery();
+        $filter->modifyQuery($builder, $this->searchTerm('eq', 'false'));
+
+        $this->assertEquals(
+            "select * from `pets` where `is_active` = ?",
+            $builder->toSql()
+        );
+        $this->assertEquals([0], $builder->getBindings());
     }
 
     private function searchTerm($operator, $term)

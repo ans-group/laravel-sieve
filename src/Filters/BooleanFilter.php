@@ -24,7 +24,13 @@ class BooleanFilter implements ModifiesQueries
         if ($search->operator() == 'neq') {
             $op = '!=';
         }
-        $query->where($search->column(), $op, $search->term() == true ? $this->trueVal : $this->falseVal);
+
+        $searchTerm = true;
+        if ($search->term() == 'false') {
+            $searchTerm = false;
+        }
+
+        $query->where($search->column(), $op, $searchTerm ? $this->trueVal : $this->falseVal);
     }
 
     public function operators()
