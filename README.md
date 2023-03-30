@@ -63,6 +63,13 @@ Filters are done in the query parameters with the format `property:operator=term
 
 By default, if no operator is specified, it will default to `eq` so `name=Bob` will expand to `name:eq=Bob`
 
+### Like & Not Like
+
+The string filter also supports like and not like operators. To use these you should use `*` as the wildcard
+rather than `%` as you would in a typical database query.
+
+For instance `first_name:lk=Sam*` would match `Sam`, `Samuel` and `Samantha`.
+
 ## Sorting
 
 You can set the fields that can be sortable when setting up your model.  
@@ -114,7 +121,7 @@ $sieve->setDefaultSort('name', 'asc')
 
 ### String
 
-The basic filter. Ideal for textual data, implements `eq`, `neq`, `in`, and `nin`
+The basic filter. Ideal for textual data, implements `eq`, `neq`, `in`, `nin`, `lk` and `nlk`
 
 ```php
 <?php
@@ -147,6 +154,7 @@ Only provides `eq` and `neq`. Also takes two arguments to specify what your true
 ```php
 <?php
 $filter->boolean() // defaults to 1 and 0
+$filter->boolean('Yes', 'No') // search for Yes and No in the database
 ```
 
 ### Date
