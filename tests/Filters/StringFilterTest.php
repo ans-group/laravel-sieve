@@ -85,4 +85,17 @@ class StringFilterTest extends TestCase
         $this->assertEquals('select * where "name" LIKE ?', $builder->toSql());
         $this->assertEquals(['%t\est*'], $builder->getBindings());
     }
+
+    /**
+     * @test
+     */
+    public function correctly_applies_nlk_operator()
+    {
+        $search = new SearchTerm('name', 'nlk', 'name', '*t\\\\est\\*');
+        $builder = app(Builder::class);
+
+        (new StringFilter)->modifyQuery($builder, $search);
+        $this->assertEquals('select * where "name" NOT LIKE ?', $builder->toSql());
+        $this->assertEquals(['%t\est*'], $builder->getBindings());
+    }
 }

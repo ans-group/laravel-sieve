@@ -24,6 +24,9 @@ class StringFilter implements ModifiesQueries
         if ($search->operator() == 'lk') {
             $query->where($search->column(), 'LIKE', $this->prepareLike($search->term()));
         }
+        if ($search->operator() == 'nlk') {
+            $query->where($search->column(), 'NOT LIKE', $this->prepareLike($search->term()));
+        }
     }
 
     protected function prepareLike($term)
@@ -67,6 +70,6 @@ class StringFilter implements ModifiesQueries
     
     public function operators()
     {
-        return ['eq', 'neq', 'in', 'nin', 'lk'];
+        return ['eq', 'neq', 'in', 'nin', 'lk', 'nlk'];
     }
 }
