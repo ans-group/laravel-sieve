@@ -1,0 +1,32 @@
+services:
+  php82:
+    container_name: authentication-package-php82
+    build:
+      context: .
+      dockerfile: .docker/php82/Dockerfile
+      args:
+        - SSH_PRIVATE_KEY
+    volumes:
+      - './:/app'
+    networks:
+      - authentication-package
+    extra_hosts:
+      - "host..xdebug.internal:host-gateway"
+  php83:
+    container_name: authentication-package-php83
+    build:
+      context: .
+      dockerfile: .docker/php83/Dockerfile
+      args:
+        - SSH_PRIVATE_KEY
+    volumes:
+      - './:/app'
+    networks:
+      - authentication-package
+    extra_hosts:
+      - "host..xdebug.internal:host-gateway"
+
+networks:
+  authentication-package:
+    name: ${AUTHENTICATION_PACKAGE_NETWORK:-authentication-package}
+
