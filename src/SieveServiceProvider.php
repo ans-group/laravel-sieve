@@ -7,11 +7,11 @@ use Illuminate\Support\ServiceProvider;
 
 class SieveServiceProvider extends ServiceProvider
 {
-    public function register()
+    public function register(): void
     {
         $app = $this->app;
 
-        Builder::macro('search', function () use ($app) {
+        Builder::macro('search', function () use ($app): object {
             $model = $this->getModel();
 
             $sieve = $app->make(Sieve::class);

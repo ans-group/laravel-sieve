@@ -12,12 +12,12 @@ class StringFilterTest extends TestCase
     /**
      * @test
      */
-    public function correctly_applies_eq_operator()
+    public function correctly_applies_eq_operator(): void
     {
         $search = new SearchTerm('name', 'eq', 'name', 'Bob');
         $builder = app(Builder::class);
 
-        (new StringFilter)->modifyQuery($builder, $search);
+        (new StringFilter())->modifyQuery($builder, $search);
         $where = $builder->wheres[0];
 
         $this->assertEquals('name', $where['column']);
@@ -28,12 +28,12 @@ class StringFilterTest extends TestCase
     /**
      * @test
      */
-    public function correctly_applies_neq_operator()
+    public function correctly_applies_neq_operator(): void
     {
         $search = new SearchTerm('name', 'neq', 'name', 'Bob');
         $builder = app(Builder::class);
 
-        (new StringFilter)->modifyQuery($builder, $search);
+        (new StringFilter())->modifyQuery($builder, $search);
         $where = $builder->wheres[0];
 
         $this->assertEquals('name', $where['column']);
@@ -44,12 +44,12 @@ class StringFilterTest extends TestCase
     /**
      * @test
      */
-    public function correctly_applies_in_operator()
+    public function correctly_applies_in_operator(): void
     {
         $search = new SearchTerm('name', 'in', 'name', 'Bob,James');
         $builder = app(Builder::class);
 
-        (new StringFilter)->modifyQuery($builder, $search);
+        (new StringFilter())->modifyQuery($builder, $search);
         $where = $builder->wheres[0];
 
         $this->assertEquals('name', $where['column']);
@@ -60,12 +60,12 @@ class StringFilterTest extends TestCase
     /**
      * @test
      */
-    public function correctly_applies_nin_operator()
+    public function correctly_applies_nin_operator(): void
     {
         $search = new SearchTerm('name', 'nin', 'name', 'Bob,James');
         $builder = app(Builder::class);
 
-        (new StringFilter)->modifyQuery($builder, $search);
+        (new StringFilter())->modifyQuery($builder, $search);
         $where = $builder->wheres[0];
 
         $this->assertEquals('name', $where['column']);
@@ -76,12 +76,12 @@ class StringFilterTest extends TestCase
     /**
      * @test
      */
-    public function correctly_applies_lk_operator()
+    public function correctly_applies_lk_operator(): void
     {
         $search = new SearchTerm('name', 'lk', 'name', '*t\\\\est\\*');
         $builder = app(Builder::class);
 
-        (new StringFilter)->modifyQuery($builder, $search);
+        (new StringFilter())->modifyQuery($builder, $search);
         $this->assertEquals('select * where "name" LIKE ?', $builder->toSql());
         $this->assertEquals(['%t\est*'], $builder->getBindings());
     }
@@ -89,12 +89,12 @@ class StringFilterTest extends TestCase
     /**
      * @test
      */
-    public function correctly_applies_nlk_operator()
+    public function correctly_applies_nlk_operator(): void
     {
         $search = new SearchTerm('name', 'nlk', 'name', '*t\\\\est\\*');
         $builder = app(Builder::class);
 
-        (new StringFilter)->modifyQuery($builder, $search);
+        (new StringFilter())->modifyQuery($builder, $search);
         $this->assertEquals('select * where "name" NOT LIKE ?', $builder->toSql());
         $this->assertEquals(['%t\est*'], $builder->getBindings());
     }

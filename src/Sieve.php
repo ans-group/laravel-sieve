@@ -8,25 +8,22 @@ class Sieve
 {
     protected $filters = [];
 
-    protected $request;
+    protected $defaultSort;
 
-    protected $defaultSort = null;
-
-    public function __construct(Request $request)
+    public function __construct(protected \Illuminate\Http\Request $request)
     {
-        $this->request = $request;
     }
 
-    public function configure($callback)
+    public function configure($callback): void
     {
-        foreach ($callback(new FilterBuilder) as $prop => $filter) {
+        foreach ($callback(new FilterBuilder()) as $prop => $filter) {
             $this->addFilter($prop, $filter);
         }
     }
 
-    public function addFilter($property, $filter)
+    public function addFilter($property, $filter): void
     {
-        $this->filters[] = compact('property', 'filter');
+        $this->filters[] = ['property' => $property, 'filter' => $filter];
     }
 
     public function getFilters()
@@ -34,7 +31,7 @@ class Sieve
         return $this->filters;
     }
 
-    public function apply($queryBuilder)
+    public function apply($queryBuilder): static
     {
         foreach ($this->getFilters() as $sieveFilter) {
             /** @var ModifiesQueries */
@@ -71,15 +68,16 @@ class Sieve
         return $this->request->get("sort") ?? $this->defaultSort;
     }
 
-    public function setDefaultSort($property = 'id', $direction = 'asc'): Sieve
+    public function setDefaultSort(string $property = 'id', string $direction = 'asc'): Sieve
     {
         $this->defaultSort = $property . ':' . $direction;
 
         return $this;
     }
 
-    protected function applyRequestSorts($queryBuilder): void {
-        $sorts = explode(',', $this->getSort());
+    protected function applyRequestSorts($queryBuilder): void
+    {
+        $sorts = explode(',', (string) $this->getSort());
         foreach ($sorts as $sort) {
             $property = explode(':', $sort)[0];
 
@@ -99,24 +97,24 @@ class Sieve
                 $filter = $filter->getWrapped();
             }
 
-            if (str_contains($column, ".")) {
+            if (str_contains((string) $column, ".")) {
                 continue;
             }
 
-            if ($sort == "$property:desc") {
+            if ($sort === "$property:desc") {
                 $queryBuilder->orderBy($column, "desc");
             }
 
-            if ($sort == "$property:asc" || $sort == $property) {
+            if ($sort === "$property:asc" || $sort === $property) {
                 $queryBuilder->orderBy($column, "asc");
             }
 
-            if ($sort == "$property:asc_nulls_last") {
+            if ($sort === "$property:asc_nulls_last") {
                 $queryBuilder->orderByRaw("ISNULL($column) asc")
                     ->orderBy($column, 'asc');
             }
 
-            if ($sort == "$property:desc_nulls_first") {
+            if ($sort === "$property:desc_nulls_first") {
                 $queryBuilder->orderByRaw("ISNULL($column) desc")
                     ->orderBy($column, 'desc');
             }
@@ -125,7 +123,7 @@ class Sieve
 
     protected function applyDefaultSort($queryBuilder): void
     {
-        list($column, $direction) = explode(':', $this->defaultSort);
+        [$column, $direction] = explode(':', (string) $this->defaultSort);
         $queryBuilder->orderBy($column, $direction);
     }
 }

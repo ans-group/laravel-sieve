@@ -14,11 +14,11 @@ class SieveServiceProviderTest extends TestCase
             SieveServiceProvider::class,
         ];
     }
-    
+
     /**
      * @test
      */
-    public function defines_a_search_macro()
+    public function defines_a_search_macro(): void
     {
         $query = Pet::query()->search();
         $this->assertInstanceOf(Builder::class, $query);

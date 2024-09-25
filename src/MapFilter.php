@@ -6,14 +6,11 @@ class MapFilter implements WrapsFilter
 {
     protected ModifiesQueries $filter;
 
-    protected $column = '';
-
-    public function __construct($column)
+    public function __construct(protected $column)
     {
-        $this->column = $column;
     }
 
-    public function wrap(ModifiesQueries $filter)
+    public function wrap(ModifiesQueries $filter): void
     {
         $this->filter = $filter;
     }
@@ -28,10 +25,10 @@ class MapFilter implements WrapsFilter
         return $this->column;
     }
 
-    public function modifyQuery($query, SearchTerm $search)
+    public function modifyQuery($query, SearchTerm $search): void
     {
-        if (strpos($this->column, '.') !== false) {
-            $parts = explode(".", $this->column);
+        if (str_contains((string) $this->column, '.')) {
+            $parts = explode(".", (string) $this->column);
             $relCol = array_pop($parts);
             $relationship = implode(".", $parts);
 
@@ -41,7 +38,7 @@ class MapFilter implements WrapsFilter
                 $relCol,
                 $search->term()
             );
-            $query->whereHas($relationship, function ($query) use ($relSearch) {
+            $query->whereHas($relationship, function ($query) use ($relSearch): void {
                 $this->filter->modifyQuery($query, $relSearch);
             });
             return;
@@ -62,7 +59,7 @@ class MapFilter implements WrapsFilter
         return $this->filter->operators();
     }
 
-    public function getFilter()
+    public function getFilter(): \UKFast\Sieve\ModifiesQueries
     {
         return $this->filter;
     }

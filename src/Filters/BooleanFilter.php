@@ -8,17 +8,11 @@ use UKFast\Sieve\SearchTerm;
 
 class BooleanFilter implements ModifiesQueries
 {
-    protected $trueVal;
-
-    protected $falseVal;
-
-    public function __construct($trueVal = 1, $falseVal = 0)
+    public function __construct(protected $trueVal = 1, protected $falseVal = 0)
     {
-        $this->trueVal = $trueVal;    
-        $this->falseVal = $falseVal;    
     }
 
-    public function modifyQuery($query, SearchTerm $search)
+    public function modifyQuery($query, SearchTerm $search): void
     {
         $op = '=';
         if ($search->operator() == 'neq') {
@@ -33,7 +27,7 @@ class BooleanFilter implements ModifiesQueries
         $query->where($search->column(), $op, $searchTerm ? $this->trueVal : $this->falseVal);
     }
 
-    public function operators()
+    public function operators(): array
     {
         return ['eq', 'neq'];
     }

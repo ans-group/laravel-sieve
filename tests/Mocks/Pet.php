@@ -14,7 +14,7 @@ class Pet extends Model implements Searchable
 
     public function sieve($sieve)
     {
-        return $sieve->configure(fn ($filter) => [
+        return $sieve->configure(fn ($filter): array => [
             'id' => $filter->numeric(),
             'name' => $filter->string(),
         ]);

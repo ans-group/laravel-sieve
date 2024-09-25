@@ -8,14 +8,11 @@ use UKFast\Sieve\SearchTerm;
 
 class EnumFilter implements ModifiesQueries
 {
-    protected $allowedValues = [];
-
-    public function __construct($allowedValues)
+    public function __construct(protected $allowedValues)
     {
-        $this->allowedValues = $allowedValues;
     }
 
-    public function modifyQuery($query, SearchTerm $search)
+    public function modifyQuery($query, SearchTerm $search): void
     {
         $terms = [$search->term()];
         if ($search->operator() == 'nin' || $search->operator() == 'in') {
@@ -31,11 +28,11 @@ class EnumFilter implements ModifiesQueries
                 throw $exception;
             }
         }
-        
-        (new StringFilter)->modifyQuery($query, $search);
+
+        (new StringFilter())->modifyQuery($query, $search);
     }
 
-    public function operators()
+    public function operators(): array
     {
         return ['in', 'eq', 'neq', 'nin'];
     }

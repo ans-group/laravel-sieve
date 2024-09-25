@@ -1,0 +1,11 @@
+includes:
+    - phpstan-rules.neon
+
+parameters:
+    paths:
+        - ./src
+        - ./tests
+
+    excludePaths:
+        - ./.docker/*
+        - ./vendor/*

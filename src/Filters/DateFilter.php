@@ -7,7 +7,7 @@ use UKFast\Sieve\SearchTerm;
 
 class DateFilter implements ModifiesQueries
 {
-    public function modifyQuery($query, SearchTerm $search)
+    public function modifyQuery($query, SearchTerm $search): void
     {
         if ($search->operator() == 'eq') {
             if ($search->term() == 'null') {
@@ -37,7 +37,7 @@ class DateFilter implements ModifiesQueries
         }
     }
 
-    public function operators()
+    public function operators(): array
     {
         return ['eq', 'neq', 'in', 'nin', 'lt', 'gt'];
     }

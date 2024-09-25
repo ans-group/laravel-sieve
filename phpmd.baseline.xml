@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<phpmd-baseline>
+  <violation rule="PHPMD\Rule\Naming\ShortVariable" file="src/Filters/BooleanFilter.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\ElseExpression" file="src/Filters/DateFilter.php"/>
+  <violation rule="PHPMD\Rule\CyclomaticComplexity" file="src/Sieve.php" method="applyRequestSorts"/>
+  <violation rule="PHPMD\Rule\Design\NpathComplexity" file="src/Sieve.php" method="applyRequestSorts"/>
+  <violation rule="PHPMD\Rule\Controversial\CamelCaseMethodName" file="tests/FilterBuilderTest.php" method="can_build_strings"/>
+  <violation rule="PHPMD\Rule\Controversial\CamelCaseMethodName" file="tests/FilterBuilderTest.php" method="can_build_enum"/>
+  <violation rule="PHPMD\Rule\Controversial\CamelCaseMethodName" file="tests/FilterBuilderTest.php" method="can_build_numeric"/>
+  <violation rule="PHPMD\Rule\Controversial\CamelCaseMethodName" file="tests/FilterBuilderTest.php" method="can_build_date"/>
+  <violation rule="PHPMD\Rule\Controversial\CamelCaseMethodName" file="tests/FilterBuilderTest.php" method="can_build_boolean"/>
+  <violation rule="PHPMD\Rule\Controversial\CamelCaseMethodName" file="tests/FilterBuilderTest.php" method="can_build_custom_filters"/>
+  <violation rule="PHPMD\Rule\Controversial\CamelCaseMethodName" file="tests/FilterBuilderTest.php" method="can_wrap_filters"/>
+  <violation rule="PHPMD\Rule\Controversial\CamelCaseMethodName" file="tests/FilterBuilderTest.php" method="can_wrap_multiple_filters"/>
+  <violation rule="PHPMD\Rule\Controversial\CamelCaseMethodName" file="tests/Filters/BooleanFilterTest.php" method="can_filter_eq"/>
+  <violation rule="PHPMD\Rule\Controversial\CamelCaseMethodName" file="tests/Filters/BooleanFilterTest.php" method="can_filter_neq"/>
+  <violation rule="PHPMD\Rule\Controversial\CamelCaseMethodName" file="tests/Filters/BooleanFilterTest.php" method="can_override_true_and_false_val"/>
+  <violation rule="PHPMD\Rule\Controversial\CamelCaseMethodName" file="tests/Filters/BooleanFilterTest.php" method="can_handle_false_in_url_string_as_boolean"/>
+  <violation rule="PHPMD\Rule\Controversial\CamelCaseMethodName" file="tests/Filters/DateFilterTest.php" method="can_filter_by_eq"/>
+  <violation rule="PHPMD\Rule\Controversial\CamelCaseMethodName" file="tests/Filters/DateFilterTest.php" method="can_filter_by_neq"/>
+  <violation rule="PHPMD\Rule\Controversial\CamelCaseMethodName" file="tests/Filters/DateFilterTest.php" method="can_filter_by_in"/>
+  <violation rule="PHPMD\Rule\Controversial\CamelCaseMethodName" file="tests/Filters/DateFilterTest.php" method="can_filter_by_nin"/>
+  <violation rule="PHPMD\Rule\Controversial\CamelCaseMethodName" file="tests/Filters/DateFilterTest.php" method="can_filter_by_lt"/>
+  <violation rule="PHPMD\Rule\Controversial\CamelCaseMethodName" file="tests/Filters/DateFilterTest.php" method="can_filter_by_gt"/>
+  <violation rule="PHPMD\Rule\Controversial\CamelCaseMethodName" file="tests/Filters/DateFilterTest.php" method="can_filter_null_by_eq"/>
+  <violation rule="PHPMD\Rule\Controversial\CamelCaseMethodName" file="tests/Filters/DateFilterTest.php" method="can_filter_null_by_neq"/>
+  <violation rule="PHPMD\Rule\Controversial\CamelCaseMethodName" file="tests/Filters/EnumFilterTest.php" method="throws_exception_on_invalid_search_term"/>
+  <violation rule="PHPMD\Rule\Controversial\CamelCaseMethodName" file="tests/Filters/EnumFilterTest.php" method="can_search_if_passed_a_valid_term"/>
+  <violation rule="PHPMD\Rule\Controversial\CamelCaseMethodName" file="tests/Filters/NumericFilterTest.php" method="correctly_applies_eq_operator"/>
+  <violation rule="PHPMD\Rule\Controversial\CamelCaseMethodName" file="tests/Filters/NumericFilterTest.php" method="correctly_applies_neq_operator"/>
+  <violation rule="PHPMD\Rule\Controversial\CamelCaseMethodName" file="tests/Filters/NumericFilterTest.php" method="correctly_applies_in_operator"/>
+  <violation rule="PHPMD\Rule\Controversial\CamelCaseMethodName" file="tests/Filters/NumericFilterTest.php" method="correctly_applies_nin_operator"/>
+  <violation rule="PHPMD\Rule\Controversial\CamelCaseMethodName" file="tests/Filters/StringFilterTest.php" method="correctly_applies_eq_operator"/>
+  <violation rule="PHPMD\Rule\Controversial\CamelCaseMethodName" file="tests/Filters/StringFilterTest.php" method="correctly_applies_neq_operator"/>
+  <violation rule="PHPMD\Rule\Controversial\CamelCaseMethodName" file="tests/Filters/StringFilterTest.php" method="correctly_applies_in_operator"/>
+  <violation rule="PHPMD\Rule\Controversial\CamelCaseMethodName" file="tests/Filters/StringFilterTest.php" method="correctly_applies_nin_operator"/>
+  <violation rule="PHPMD\Rule\Controversial\CamelCaseMethodName" file="tests/Filters/StringFilterTest.php" method="correctly_applies_lk_operator"/>
+  <violation rule="PHPMD\Rule\Controversial\CamelCaseMethodName" file="tests/Filters/StringFilterTest.php" method="correctly_applies_nlk_operator"/>
+  <violation rule="PHPMD\Rule\Controversial\CamelCaseMethodName" file="tests/MapFilterTest.php" method="can_target_relationships"/>
+  <violation rule="PHPMD\Rule\Controversial\CamelCaseMethodName" file="tests/MapFilterTest.php" method="can_target_columns_in_the_same_table"/>
+  <violation rule="PHPMD\Rule\Controversial\CamelCaseMethodName" file="tests/MapFilterTest.php" method="can_target_nested_relationships"/>
+  <violation rule="PHPMD\Rule\UnusedFormalParameter" file="tests/SieveServiceProviderTest.php"/>
+  <violation rule="PHPMD\Rule\Controversial\CamelCaseMethodName" file="tests/SieveServiceProviderTest.php" method="defines_a_search_macro"/>
+  <violation rule="PHPMD\Rule\Design\TooManyPublicMethods" file="tests/SieveTest.php"/>
+  <violation rule="PHPMD\Rule\Controversial\CamelCaseMethodName" file="tests/SieveTest.php" method="filters_and_sorts"/>
+  <violation rule="PHPMD\Rule\Controversial\CamelCaseMethodName" file="tests/SieveTest.php" method="set_default_sort_filter"/>
+  <violation rule="PHPMD\Rule\Controversial\CamelCaseMethodName" file="tests/SieveTest.php" method="applies_sieve_sorts_to_a_query_builder_asc_by_default"/>
+  <violation rule="PHPMD\Rule\Controversial\CamelCaseMethodName" file="tests/SieveTest.php" method="applies_sieve_sorts_to_a_query_builder_asc"/>
+  <violation rule="PHPMD\Rule\Controversial\CamelCaseMethodName" file="tests/SieveTest.php" method="applies_sieve_sorts_to_a_query_builder_asc_nulls_last"/>
+  <violation rule="PHPMD\Rule\Controversial\CamelCaseMethodName" file="tests/SieveTest.php" method="applies_sieve_sorts_to_a_query_builder_desc_nulls_first"/>
+  <violation rule="PHPMD\Rule\Controversial\CamelCaseMethodName" file="tests/SieveTest.php" method="allows_multiple_columns_to_be_ordered"/>
+  <violation rule="PHPMD\Rule\Controversial\CamelCaseMethodName" file="tests/SieveTest.php" method="allows_multiple_columns_to_be_ordered_including_a_null_column"/>
+  <violation rule="PHPMD\Rule\Controversial\CamelCaseMethodName" file="tests/SieveTest.php" method="applies_order_by_in_order_when_sieve_config_order_is_different"/>
+  <violation rule="PHPMD\Rule\Controversial\CamelCaseMethodName" file="tests/SieveTest.php" method="ignores_undefined_sort"/>
+  <violation rule="PHPMD\Rule\Controversial\CamelCaseMethodName" file="tests/SieveTest.php" method="ignores_invalid_sort_direction"/>
+  <violation rule="PHPMD\Rule\Controversial\CamelCaseMethodName" file="tests/SieveTest.php" method="expands_no_eplicit_operator_to_eq"/>
+  <violation rule="PHPMD\Rule\Controversial\CamelCaseMethodName" file="tests/SieveTest.php" method="sorts_can_be_remapped"/>
+  <violation rule="PHPMD\Rule\Controversial\CamelCaseMethodName" file="tests/SieveTest.php" method="ignores_sorts_on_relationships"/>
+</phpmd-baseline>

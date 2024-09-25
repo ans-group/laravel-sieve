@@ -13,7 +13,7 @@ class SieveTest extends TestCase
     /**
      * @test
      */
-    public function filters_and_sorts()
+    public function filters_and_sorts(): void
     {
         $request = Request::create('/', 'GET', [
             'name:in' => 'Snoopy,Hobbes',
@@ -21,7 +21,7 @@ class SieveTest extends TestCase
         ]);
 
         $sieve = new Sieve($request);
-        $sieve->configure(fn ($builder) => [
+        $sieve->configure(fn ($builder): array => [
             'name' => $builder->string(),
         ]);
 
@@ -40,7 +40,7 @@ class SieveTest extends TestCase
     /**
      * @test
      */
-    public function set_default_sort_filter()
+    public function set_default_sort_filter(): void
     {
         $request = Request::create('/');
 
@@ -64,14 +64,14 @@ class SieveTest extends TestCase
     /**
      * @test
      */
-    public function applies_sieve_sorts_to_a_query_builder_asc_by_default()
+    public function applies_sieve_sorts_to_a_query_builder_asc_by_default(): void
     {
         $request = Request::create('/', 'GET', [
             'sort' => 'name',
         ]);
 
         $seive = new Sieve($request);
-        $seive->addFilter('name', new StringFilter);
+        $seive->addFilter('name', new StringFilter());
 
         /** @var Builder */
         $builder = $this->app->make(Builder::class);
@@ -88,14 +88,14 @@ class SieveTest extends TestCase
     /**
      * @test
      */
-    public function applies_sieve_sorts_to_a_query_builder_asc()
+    public function applies_sieve_sorts_to_a_query_builder_asc(): void
     {
         $request = Request::create('/', 'GET', [
             'sort' => 'name:asc',
         ]);
 
         $seive = new Sieve($request);
-        $seive->addFilter('name', new StringFilter);
+        $seive->addFilter('name', new StringFilter());
 
         /** @var Builder */
         $builder = $this->app->make(Builder::class);
@@ -112,14 +112,14 @@ class SieveTest extends TestCase
     /**
      * @test
      */
-    public function applies_sieve_sorts_to_a_query_builder_asc_nulls_last()
+    public function applies_sieve_sorts_to_a_query_builder_asc_nulls_last(): void
     {
         $request = Request::create('/', 'GET', [
             'sort' => 'name:asc_nulls_last',
         ]);
 
         $seive = new Sieve($request);
-        $seive->addFilter('name', new StringFilter);
+        $seive->addFilter('name', new StringFilter());
 
         /** @var Builder */
         $builder = $this->app->make(Builder::class);
@@ -136,14 +136,14 @@ class SieveTest extends TestCase
     /**
      * @test
      */
-    public function applies_sieve_sorts_to_a_query_builder_desc_nulls_first()
+    public function applies_sieve_sorts_to_a_query_builder_desc_nulls_first(): void
     {
         $request = Request::create('/', 'GET', [
             'sort' => 'name:desc_nulls_first',
         ]);
 
         $seive = new Sieve($request);
-        $seive->addFilter('name', new StringFilter);
+        $seive->addFilter('name', new StringFilter());
 
         /** @var Builder */
         $builder = $this->app->make(Builder::class);
@@ -160,15 +160,15 @@ class SieveTest extends TestCase
     /**
      * @test
      */
-    public function allows_multiple_columns_to_be_ordered()
+    public function allows_multiple_columns_to_be_ordered(): void
     {
         $request = Request::create('/', 'GET', [
             'sort' => 'type:asc,name:desc',
         ]);
 
         $seive = new Sieve($request);
-        $seive->addFilter('type', new StringFilter);
-        $seive->addFilter('name', new StringFilter);
+        $seive->addFilter('type', new StringFilter());
+        $seive->addFilter('name', new StringFilter());
 
         /** @var Builder */
         $builder = $this->app->make(Builder::class);
@@ -185,15 +185,15 @@ class SieveTest extends TestCase
     /**
      * @test
      */
-    public function allows_multiple_columns_to_be_ordered_including_a_null_column()
+    public function allows_multiple_columns_to_be_ordered_including_a_null_column(): void
     {
         $request = Request::create('/', 'GET', [
             'sort' => 'type:asc,name:desc_nulls_first',
         ]);
 
         $seive = new Sieve($request);
-        $seive->addFilter('type', new StringFilter);
-        $seive->addFilter('name', new StringFilter);
+        $seive->addFilter('type', new StringFilter());
+        $seive->addFilter('name', new StringFilter());
 
         /** @var Builder */
         $builder = $this->app->make(Builder::class);
@@ -210,15 +210,15 @@ class SieveTest extends TestCase
     /**
      * @test
      */
-    public function applies_order_by_in_order_when_sieve_config_order_is_different()
+    public function applies_order_by_in_order_when_sieve_config_order_is_different(): void
     {
         $request = Request::create('/', 'GET', [
             'sort' => 'type:asc,name:desc',
         ]);
 
         $seive = new Sieve($request);
-        $seive->addFilter('name', new StringFilter);
-        $seive->addFilter('type', new StringFilter);
+        $seive->addFilter('name', new StringFilter());
+        $seive->addFilter('type', new StringFilter());
 
         /** @var Builder */
         $builder = $this->app->make(Builder::class);
@@ -235,7 +235,7 @@ class SieveTest extends TestCase
     /**
      * @test
      */
-    public function ignores_undefined_sort()
+    public function ignores_undefined_sort(): void
     {
         $request = Request::create('/', 'GET', [
             'sort' => 'name:desc',
@@ -254,14 +254,14 @@ class SieveTest extends TestCase
     /**
      * @test
      */
-    public function ignores_invalid_sort_direction()
+    public function ignores_invalid_sort_direction(): void
     {
         $request = Request::create('/', 'GET', [
             'sort' => 'name:foo',
         ]);
 
         $seive = new Sieve($request);
-        $seive->addFilter('name', new StringFilter);
+        $seive->addFilter('name', new StringFilter());
 
         /** @var Builder */
         $builder = $this->app->make(Builder::class);
@@ -274,14 +274,14 @@ class SieveTest extends TestCase
     /**
      * @test
      */
-    public function expands_no_eplicit_operator_to_eq()
+    public function expands_no_eplicit_operator_to_eq(): void
     {
         $request = Request::create('/', 'GET', [
             'name' => 'Snoopy',
         ]);
 
         $seive = new Sieve($request);
-        $seive->configure(fn ($builder) => [
+        $seive->configure(fn ($builder): array => [
             'name' => $builder->string(),
         ]);
 
@@ -300,14 +300,14 @@ class SieveTest extends TestCase
     /**
      * @test
      */
-    public function sorts_can_be_remapped()
+    public function sorts_can_be_remapped(): void
     {
         $request = Request::create('/', 'GET', [
             'sort' => 'name:asc',
         ]);
 
         $seive = new Sieve($request);
-        $seive->configure(fn ($builder) => [
+        $seive->configure(fn ($builder): array => [
             'name' => $builder->for('pname')->string(),
         ]);
 
@@ -317,7 +317,7 @@ class SieveTest extends TestCase
         $seive->apply($builder);
 
         $this->assertEquals(
-            'select * from `pets` order by `pname` asc',
+            'select * from "pets" order by "pname" asc',
             $builder->toSql()
         );
     }
@@ -326,14 +326,14 @@ class SieveTest extends TestCase
      * Not figured out a good way to do this with eloquent yet
      * @test
      */
-    public function ignores_sorts_on_relationships()
+    public function ignores_sorts_on_relationships(): void
     {
         $request = Request::create('/', 'GET', [
             'sort' => 'owner_name:asc',
         ]);
 
         $seive = new Sieve($request);
-        $seive->configure(fn ($builder) => [
+        $seive->configure(fn ($builder): array => [
             'owner_name' => $builder->for('owner.name')->string(),
         ]);
 
@@ -343,7 +343,7 @@ class SieveTest extends TestCase
         $seive->apply($builder);
 
         $this->assertEquals(
-            'select * from `pets`',
+            'select * from "pets"',
             $builder->toSql()
         );
     }
