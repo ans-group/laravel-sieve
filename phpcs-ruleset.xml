@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<ruleset name="Scans">
+    <description>Standards</description>
+    <exclude-pattern>.docker/*</exclude-pattern>
+    <exclude-pattern>vendor/*</exclude-pattern>
+    <rule ref="PSR12"/>
+    <rule ref="PSR1.Methods.CamelCapsMethodName">
+        <exclude-pattern>tests/*</exclude-pattern>
+    </rule>
+    <rule ref="PSR1.Files.SideEffects.FoundWithSymbols">
+        <exclude-pattern>tests/Pest.php</exclude-pattern>
+    </rule>
+</ruleset>
