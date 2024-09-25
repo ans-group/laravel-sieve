@@ -15,10 +15,6 @@ jobs:
     strategy:
       matrix:
         environment:
-          - php_version: 8.1
-            laravel_version: 10
-          - php_version: 8.2
-            laravel_version: 10
           - php_version: 8.2
             laravel_version: 11
           - php_version: 8.3
