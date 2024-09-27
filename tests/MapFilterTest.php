@@ -79,7 +79,8 @@ class MapFilterTest extends TestCase
 
         $builder = $eloquentBuilder->getQuery();
         $this->assertEquals(
-            'select * from "pets" where exists (select * from "owners" where "pets"."owner_id" = "owners"."id" and' .
+            'select * from "pets" where' .
+            ' exists (select * from "owners" where "pets"."owner_id" = "owners"."id" and' .
             ' exists (select * from "cards" where "owners"."id" = "cards"."owner_id" and "id" = ?))',
             $builder->toSql()
         );
