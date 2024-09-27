@@ -21,13 +21,18 @@
     },
     "minimum-stability": "dev",
     "require": {
-        "php": "^8.0|^8.1",
-        "illuminate/database": "^6.20.12|^7.30.4|^8.22.2|^9.0|^10.0|^11.0",
-        "illuminate/http": "^6.0|^7.0|^8.0|^9.0|^10.0|^11.0"
+        "php": "^8.2",
+        "illuminate/database": "^11.0",
+        "illuminate/http": "^11.0"
     },
     "require-dev": {
-        "orchestra/testbench": "^4.0|^5.0|^6.0|^7.0|^8.0",
-        "phpunit/phpunit": "^8.5|^9.3"
+        "phpunit/phpunit": "^10.0",
+        "squizlabs/php_codesniffer": "^3.10",
+        "orchestra/testbench": "^9.0",
+        "phpmd/phpmd": "^2.1.5",
+        "larastan/larastan": "^2.9",
+        "phpstan/phpstan-mockery": "^1.1",
+        "rector/rector": "^1.2"
     },
     "extra": {
         "laravel": {
@@ -35,5 +40,27 @@
                 "UKFast\\Sieve\\SieveServiceProvider"
             ]
         }
+    },
+    "scripts": {
+        "tests": "./vendor/bin/phpunit",
+        "phpcs": "./vendor/bin/phpcs --colors --standard=.phpcs/ruleset.xml .",
+        "phpcs:fix": "./vendor/bin/phpcbf --colors --standard=.phpcs/ruleset.xml .",
+        "phpmd": "./vendor/bin/phpmd src,tests github .phpmd/ruleset.xml --baseline-file=./phpmd.baseline.xml --color",
+        "larastan": "./vendor/bin/phpstan --configuration=phpstan.neon analyse --error-format=table --memory-limit=1G src tests",
+        "rector": "./vendor/bin/rector --dry-run --config=rector.php",
+        "rector:fix": "./vendor/bin/rector --config=rector.php",
+        "post-autoload-dump": [
+            "@php ./vendor/bin/testbench package:discover --ansi"
+        ],
+        "standards:check": [
+            "@phpcs",
+            "@phpmd",
+            "@larastan",
+            "@rector"
+        ],
+        "standards:fix": [
+            "@phpcs:fix",
+            "@rector:fix"
+        ]
     }
 }

@@ -7,7 +7,7 @@ use UKFast\Sieve\SearchTerm;
 
 class NumericFilter implements ModifiesQueries
 {
-    public function modifyQuery($query, SearchTerm $search)
+    public function modifyQuery($query, SearchTerm $search): void
     {
         if ($search->operator() == 'eq') {
             $query->where($search->column(), $search->term());
@@ -29,7 +29,7 @@ class NumericFilter implements ModifiesQueries
         }
     }
 
-    public function operators()
+    public function operators(): array
     {
         return ['eq', 'neq', 'in', 'nin', 'lt', 'gt'];
     }

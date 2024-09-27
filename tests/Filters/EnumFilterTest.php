@@ -13,7 +13,7 @@ class EnumFilterTest extends TestCase
     /**
      * @test
      */
-    public function throws_exception_on_invalid_search_term()
+    public function throws_exception_on_invalid_search_term(): void
     {
         $filter = new EnumFilter(['a', 'b', 'c']);
         $search = new SearchTerm('letter', 'eq', 'letter', 'd');
@@ -33,7 +33,7 @@ class EnumFilterTest extends TestCase
     /**
      * @test
      */
-    public function can_search_if_passed_a_valid_term()
+    public function can_search_if_passed_a_valid_term(): void
     {
         $filter = new EnumFilter(['a', 'b', 'c']);
         $search = new SearchTerm('letter', 'eq', 'letter', 'a');

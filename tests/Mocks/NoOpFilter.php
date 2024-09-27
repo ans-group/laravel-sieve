@@ -11,7 +11,7 @@ class NoOpFilter implements ModifiesQueries
     {
     }
 
-    public function operators()
+    public function operators(): array
     {
         return [];
     }

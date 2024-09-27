@@ -21,17 +21,17 @@ class FilterBuilder
 
     public function string()
     {
-        return $this->wrapFilter(new StringFilter);
+        return $this->wrapFilter(new StringFilter());
     }
 
     public function numeric()
     {
-        return $this->wrapFilter(new NumericFilter);
+        return $this->wrapFilter(new NumericFilter());
     }
 
     public function date()
     {
-        return $this->wrapFilter(new DateFilter);
+        return $this->wrapFilter(new DateFilter());
     }
 
     public function boolean($trueVal = 1, $falseVal = 0)
@@ -44,14 +44,14 @@ class FilterBuilder
         return $this->wrapFilter($filter);
     }
 
-    public function for($column)
+    public function for($column): static
     {
         return $this->wrap(new MapFilter($column));
     }
 
-    public function wrap(WrapsFilter $newWrapper)
+    public function wrap(WrapsFilter $newWrapper): static
     {
-        if ($this->wrapper) {
+        if ($this->wrapper instanceof \UKFast\Sieve\WrapsFilter) {
             $newWrapper->wrap($this->wrapper);
             $this->wrapper = $newWrapper;
             return $this;
@@ -68,7 +68,7 @@ class FilterBuilder
      */
     protected function wrapFilter($filter)
     {
-        if ($this->wrapper) {
+        if ($this->wrapper instanceof \UKFast\Sieve\WrapsFilter) {
             $this->lastWrapper->wrap($filter);
             $wrapped = $this->wrapper;
 

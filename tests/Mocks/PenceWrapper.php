@@ -10,7 +10,7 @@ class PenceWrapper implements WrapsFilter
 {
     protected ModifiesQueries $filter;
 
-    public function wrap(ModifiesQueries $filter)
+    public function wrap(ModifiesQueries $filter): void
     {
         $this->filter = $filter;
     }
@@ -20,7 +20,7 @@ class PenceWrapper implements WrapsFilter
         return $this->filter;
     }
 
-    public function modifyQuery($query, SearchTerm $search)
+    public function modifyQuery($query, SearchTerm $search): void
     {
         $this->filter->modifyQuery($query, new SearchTerm(
             $search->property(),

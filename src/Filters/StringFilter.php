@@ -7,7 +7,7 @@ use UKFast\Sieve\SearchTerm;
 
 class StringFilter implements ModifiesQueries
 {
-    public function modifyQuery($query, SearchTerm $search)
+    public function modifyQuery($query, SearchTerm $search): void
     {
         if ($search->operator() == 'eq') {
             $query->where($search->column(), $search->term());
@@ -29,18 +29,18 @@ class StringFilter implements ModifiesQueries
         }
     }
 
-    protected function prepareLike($term)
+    protected function prepareLike(string $term): string
     {
         $prepared = "";
         for ($i = 0; $i < strlen($term); $i++) {
             $char = $term[$i];
             $shouldEscape = $this->shouldEscape($term, $i);
 
-            if ($char == '\\' && !$shouldEscape) {
+            if ($char === '\\' && !$shouldEscape) {
                 continue;
             }
 
-            if ($char == '*' && !$shouldEscape) {
+            if ($char === '*' && !$shouldEscape) {
                 $prepared .= '%';
                 continue;
             }
@@ -51,24 +51,20 @@ class StringFilter implements ModifiesQueries
         return $prepared;
     }
 
-    private function shouldEscape($string, $pos)
+    private function shouldEscape(string $string, int|float $pos): bool
     {
         if ($pos == 0) {
             return false;
         }
 
-        if ($string[$pos-1] == '\\') {
-            if ($this->shouldEscape($string, $pos-1)) {
-                return false;
-            }
-
-            return true;
+        if ($string[$pos - 1] === '\\') {
+            return !$this->shouldEscape($string, $pos - 1);
         }
 
         return false;
     }
-    
-    public function operators()
+
+    public function operators(): array
     {
         return ['eq', 'neq', 'in', 'nin', 'lk', 'nlk'];
     }

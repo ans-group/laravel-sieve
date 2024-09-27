@@ -1,0 +1,321 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Property UKFast\\\\Sieve\\\\Exceptions\\\\InvalidSearchTermException\\:\\:\\$allowedValues type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Exceptions/InvalidSearchTermException.php
+
+		-
+			message: "#^Cannot call method wrap\\(\\) on UKFast\\\\Sieve\\\\WrapsFilter\\|null\\.$#"
+			count: 1
+			path: src/FilterBuilder.php
+
+		-
+			message: "#^Method UKFast\\\\Sieve\\\\FilterBuilder\\:\\:boolean\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/FilterBuilder.php
+
+		-
+			message: "#^Method UKFast\\\\Sieve\\\\FilterBuilder\\:\\:boolean\\(\\) has parameter \\$falseVal with no type specified\\.$#"
+			count: 1
+			path: src/FilterBuilder.php
+
+		-
+			message: "#^Method UKFast\\\\Sieve\\\\FilterBuilder\\:\\:boolean\\(\\) has parameter \\$trueVal with no type specified\\.$#"
+			count: 1
+			path: src/FilterBuilder.php
+
+		-
+			message: "#^Method UKFast\\\\Sieve\\\\FilterBuilder\\:\\:custom\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/FilterBuilder.php
+
+		-
+			message: "#^Method UKFast\\\\Sieve\\\\FilterBuilder\\:\\:custom\\(\\) has parameter \\$filter with no type specified\\.$#"
+			count: 1
+			path: src/FilterBuilder.php
+
+		-
+			message: "#^Method UKFast\\\\Sieve\\\\FilterBuilder\\:\\:date\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/FilterBuilder.php
+
+		-
+			message: "#^Method UKFast\\\\Sieve\\\\FilterBuilder\\:\\:enum\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/FilterBuilder.php
+
+		-
+			message: "#^Method UKFast\\\\Sieve\\\\FilterBuilder\\:\\:enum\\(\\) has parameter \\$cols with no type specified\\.$#"
+			count: 1
+			path: src/FilterBuilder.php
+
+		-
+			message: "#^Method UKFast\\\\Sieve\\\\FilterBuilder\\:\\:for\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/FilterBuilder.php
+
+		-
+			message: "#^Method UKFast\\\\Sieve\\\\FilterBuilder\\:\\:for\\(\\) has parameter \\$column with no type specified\\.$#"
+			count: 1
+			path: src/FilterBuilder.php
+
+		-
+			message: "#^Method UKFast\\\\Sieve\\\\FilterBuilder\\:\\:numeric\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/FilterBuilder.php
+
+		-
+			message: "#^Method UKFast\\\\Sieve\\\\FilterBuilder\\:\\:string\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/FilterBuilder.php
+
+		-
+			message: "#^Method UKFast\\\\Sieve\\\\FilterBuilder\\:\\:wrapFilter\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/FilterBuilder.php
+
+		-
+			message: "#^Method UKFast\\\\Sieve\\\\FilterBuilder\\:\\:wrapFilter\\(\\) has parameter \\$filter with no type specified\\.$#"
+			count: 1
+			path: src/FilterBuilder.php
+
+		-
+			message: "#^Method UKFast\\\\Sieve\\\\Filters\\\\BooleanFilter\\:\\:__construct\\(\\) has parameter \\$falseVal with no type specified\\.$#"
+			count: 1
+			path: src/Filters/BooleanFilter.php
+
+		-
+			message: "#^Method UKFast\\\\Sieve\\\\Filters\\\\BooleanFilter\\:\\:__construct\\(\\) has parameter \\$trueVal with no type specified\\.$#"
+			count: 1
+			path: src/Filters/BooleanFilter.php
+
+		-
+			message: "#^Method UKFast\\\\Sieve\\\\Filters\\\\BooleanFilter\\:\\:modifyQuery\\(\\) has parameter \\$query with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
+			count: 1
+			path: src/Filters/BooleanFilter.php
+
+		-
+			message: "#^Method UKFast\\\\Sieve\\\\Filters\\\\BooleanFilter\\:\\:operators\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Filters/BooleanFilter.php
+
+		-
+			message: "#^Method UKFast\\\\Sieve\\\\Filters\\\\DateFilter\\:\\:modifyQuery\\(\\) has parameter \\$query with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
+			count: 1
+			path: src/Filters/DateFilter.php
+
+		-
+			message: "#^Method UKFast\\\\Sieve\\\\Filters\\\\DateFilter\\:\\:operators\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Filters/DateFilter.php
+
+		-
+			message: "#^Method UKFast\\\\Sieve\\\\Filters\\\\EnumFilter\\:\\:__construct\\(\\) has parameter \\$allowedValues with no type specified\\.$#"
+			count: 1
+			path: src/Filters/EnumFilter.php
+
+		-
+			message: "#^Method UKFast\\\\Sieve\\\\Filters\\\\EnumFilter\\:\\:allowedValues\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Filters/EnumFilter.php
+
+		-
+			message: "#^Method UKFast\\\\Sieve\\\\Filters\\\\EnumFilter\\:\\:modifyQuery\\(\\) has parameter \\$query with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
+			count: 1
+			path: src/Filters/EnumFilter.php
+
+		-
+			message: "#^Method UKFast\\\\Sieve\\\\Filters\\\\EnumFilter\\:\\:operators\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Filters/EnumFilter.php
+
+		-
+			message: "#^Method UKFast\\\\Sieve\\\\Filters\\\\NumericFilter\\:\\:modifyQuery\\(\\) has parameter \\$query with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
+			count: 1
+			path: src/Filters/NumericFilter.php
+
+		-
+			message: "#^Method UKFast\\\\Sieve\\\\Filters\\\\NumericFilter\\:\\:operators\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Filters/NumericFilter.php
+
+		-
+			message: "#^Method UKFast\\\\Sieve\\\\Filters\\\\StringFilter\\:\\:modifyQuery\\(\\) has parameter \\$query with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
+			count: 1
+			path: src/Filters/StringFilter.php
+
+		-
+			message: "#^Method UKFast\\\\Sieve\\\\Filters\\\\StringFilter\\:\\:operators\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Filters/StringFilter.php
+
+		-
+			message: "#^Method UKFast\\\\Sieve\\\\Filters\\\\StringFilter\\:\\:prepareLike\\(\\) has parameter \\$term with no type specified\\.$#"
+			count: 1
+			path: src/Filters/StringFilter.php
+
+		-
+			message: "#^Method UKFast\\\\Sieve\\\\MapFilter\\:\\:__construct\\(\\) has parameter \\$column with no type specified\\.$#"
+			count: 1
+			path: src/MapFilter.php
+
+		-
+			message: "#^Method UKFast\\\\Sieve\\\\MapFilter\\:\\:modifyQuery\\(\\) has parameter \\$query with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
+			count: 1
+			path: src/MapFilter.php
+
+		-
+			message: "#^Method UKFast\\\\Sieve\\\\MapFilter\\:\\:operators\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/MapFilter.php
+
+		-
+			message: "#^Method UKFast\\\\Sieve\\\\MapFilter\\:\\:target\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/MapFilter.php
+
+		-
+			message: "#^Method UKFast\\\\Sieve\\\\ModifiesQueries\\:\\:modifyQuery\\(\\) has parameter \\$query with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
+			count: 1
+			path: src/ModifiesQueries.php
+
+		-
+			message: "#^Method UKFast\\\\Sieve\\\\ModifiesQueries\\:\\:operators\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/ModifiesQueries.php
+
+		-
+			message: "#^Method UKFast\\\\Sieve\\\\Sieve\\:\\:addFilter\\(\\) has parameter \\$filter with no type specified\\.$#"
+			count: 1
+			path: src/Sieve.php
+
+		-
+			message: "#^Method UKFast\\\\Sieve\\\\Sieve\\:\\:addFilter\\(\\) has parameter \\$property with no type specified\\.$#"
+			count: 1
+			path: src/Sieve.php
+
+		-
+			message: "#^Method UKFast\\\\Sieve\\\\Sieve\\:\\:apply\\(\\) has parameter \\$queryBuilder with no type specified\\.$#"
+			count: 1
+			path: src/Sieve.php
+
+		-
+			message: "#^Method UKFast\\\\Sieve\\\\Sieve\\:\\:applyDefaultSort\\(\\) has parameter \\$queryBuilder with no type specified\\.$#"
+			count: 1
+			path: src/Sieve.php
+
+		-
+			message: "#^Method UKFast\\\\Sieve\\\\Sieve\\:\\:applyRequestSorts\\(\\) has parameter \\$queryBuilder with no type specified\\.$#"
+			count: 1
+			path: src/Sieve.php
+
+		-
+			message: "#^Method UKFast\\\\Sieve\\\\Sieve\\:\\:configure\\(\\) has parameter \\$callback with no type specified\\.$#"
+			count: 1
+			path: src/Sieve.php
+
+		-
+			message: "#^Method UKFast\\\\Sieve\\\\Sieve\\:\\:getFilters\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Sieve.php
+
+		-
+			message: "#^Parameter \\#4 \\$term of class UKFast\\\\Sieve\\\\SearchTerm constructor expects string, mixed given\\.$#"
+			count: 1
+			path: src/Sieve.php
+
+		-
+			message: "#^Property UKFast\\\\Sieve\\\\Sieve\\:\\:\\$defaultSort has no type specified\\.$#"
+			count: 1
+			path: src/Sieve.php
+
+		-
+			message: "#^Property UKFast\\\\Sieve\\\\Sieve\\:\\:\\$filters has no type specified\\.$#"
+			count: 1
+			path: src/Sieve.php
+
+		-
+			message: "#^Unable to resolve the template type TKey in call to function collect$#"
+			count: 1
+			path: src/Sieve.php
+
+		-
+			message: "#^Unable to resolve the template type TValue in call to function collect$#"
+			count: 1
+			path: src/Sieve.php
+
+		-
+			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:sieve\\(\\)\\.$#"
+			count: 1
+			path: src/SieveServiceProvider.php
+
+		-
+			message: "#^Method UKFast\\\\Sieve\\\\WrapsFilter\\:\\:wrap\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/WrapsFilter.php
+
+		-
+			message: "#^Cannot call method make\\(\\) on Illuminate\\\\Foundation\\\\Application\\|null\\.$#"
+			count: 2
+			path: tests/Filters/EnumFilterTest.php
+
+		-
+			message: "#^Parameter \\#4 \\$term of class UKFast\\\\Sieve\\\\SearchTerm constructor expects string, int given\\.$#"
+			count: 2
+			path: tests/Filters/NumericFilterTest.php
+
+		-
+			message: "#^Parameter \\#4 \\$term of class UKFast\\\\Sieve\\\\SearchTerm constructor expects string, int given\\.$#"
+			count: 3
+			path: tests/MapFilterTest.php
+
+		-
+			message: "#^Method Tests\\\\Mocks\\\\NoOpFilter\\:\\:modifyQuery\\(\\) has parameter \\$query with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
+			count: 1
+			path: tests/Mocks/NoOpFilter.php
+
+		-
+			message: "#^Method Tests\\\\Mocks\\\\NoOpFilter\\:\\:operators\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/Mocks/NoOpFilter.php
+
+		-
+			message: "#^Method Tests\\\\Mocks\\\\Owner\\:\\:card\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/Mocks/Owner.php
+
+		-
+			message: "#^Binary operation \"\\*\" between string and 100 results in an error\\.$#"
+			count: 1
+			path: tests/Mocks/PenceWrapper.php
+
+		-
+			message: "#^Method Tests\\\\Mocks\\\\PenceWrapper\\:\\:modifyQuery\\(\\) has parameter \\$query with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
+			count: 1
+			path: tests/Mocks/PenceWrapper.php
+
+		-
+			message: "#^Method Tests\\\\Mocks\\\\PenceWrapper\\:\\:operators\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/Mocks/PenceWrapper.php
+
+		-
+			message: "#^Method Tests\\\\Mocks\\\\Pet\\:\\:owner\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/Mocks/Pet.php
+
+		-
+			message: "#^Method Tests\\\\Mocks\\\\Pet\\:\\:sieve\\(\\) has parameter \\$sieve with no type specified\\.$#"
+			count: 1
+			path: tests/Mocks/Pet.php
+
+		-
+			message: "#^Method Tests\\\\Mocks\\\\Pet\\:\\:sieve\\(\\) with return type void returns mixed but should not return anything\\.$#"
+			count: 1
+			path: tests/Mocks/Pet.php
+
+		-
+			message: "#^Cannot call method make\\(\\) on Illuminate\\\\Foundation\\\\Application\\|null\\.$#"
+			count: 12
+			path: tests/SieveTest.php

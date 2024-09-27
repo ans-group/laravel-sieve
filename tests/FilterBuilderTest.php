@@ -18,9 +18,9 @@ class FilterBuilderTest extends TestCase
     /**
      * @test
      */
-    public function can_build_strings()
+    public function can_build_strings(): void
     {
-        $builder = new FilterBuilder;
+        $builder = new FilterBuilder();
 
         $this->assertInstanceOf(StringFilter::class, $builder->string());
     }
@@ -28,9 +28,9 @@ class FilterBuilderTest extends TestCase
     /**
      * @test
      */
-    public function can_build_enum()
+    public function can_build_enum(): void
     {
-        $builder = new FilterBuilder;
+        $builder = new FilterBuilder();
 
         $this->assertInstanceOf(EnumFilter::class, $builder->enum(['a', 'b']));
     }
@@ -38,9 +38,9 @@ class FilterBuilderTest extends TestCase
     /**
      * @test
      */
-    public function can_build_numeric()
+    public function can_build_numeric(): void
     {
-        $builder = new FilterBuilder;
+        $builder = new FilterBuilder();
 
         $this->assertInstanceOf(NumericFilter::class, $builder->numeric());
     }
@@ -48,9 +48,9 @@ class FilterBuilderTest extends TestCase
     /**
      * @test
      */
-    public function can_build_date()
+    public function can_build_date(): void
     {
-        $builder = new FilterBuilder;
+        $builder = new FilterBuilder();
 
         $this->assertInstanceOf(DateFilter::class, $builder->date());
     }
@@ -58,9 +58,9 @@ class FilterBuilderTest extends TestCase
     /**
      * @test
      */
-    public function can_build_boolean()
+    public function can_build_boolean(): void
     {
-        $builder = new FilterBuilder;
+        $builder = new FilterBuilder();
 
         $this->assertInstanceOf(BooleanFilter::class, $builder->boolean());
     }
@@ -69,20 +69,20 @@ class FilterBuilderTest extends TestCase
     /**
      * @test
      */
-    public function can_build_custom_filters()
+    public function can_build_custom_filters(): void
     {
-        $builder = new FilterBuilder;
+        $builder = new FilterBuilder();
 
-        $this->assertInstanceOf(NoOpFilter::class, $builder->custom(new NoOpFilter));
+        $this->assertInstanceOf(NoOpFilter::class, $builder->custom(new NoOpFilter()));
     }
 
     /**
      * @test
      */
-    public function can_wrap_filters()
+    public function can_wrap_filters(): void
     {
-        $builder = new FilterBuilder;
-        $wrapped = $builder->wrap(new PenceWrapper)->string();
+        $builder = new FilterBuilder();
+        $wrapped = $builder->wrap(new PenceWrapper())->string();
 
         $this->assertInstanceOf(PenceWrapper::class, $wrapped);
     }
@@ -90,10 +90,10 @@ class FilterBuilderTest extends TestCase
     /**
      * @test
      */
-    public function can_wrap_multiple_filters()
+    public function can_wrap_multiple_filters(): void
     {
-        $builder = new FilterBuilder;
-        $wrapped = $builder->wrap(new PenceWrapper)->wrap(new MapFilter('target'))->string();
+        $builder = new FilterBuilder();
+        $wrapped = $builder->wrap(new PenceWrapper())->wrap(new MapFilter('target'))->string();
 
         $this->assertInstanceOf(MapFilter::class, $wrapped);
     }

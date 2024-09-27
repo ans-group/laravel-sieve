@@ -12,12 +12,12 @@ class NumericFilterTest extends TestCase
     /**
      * @test
      */
-    public function correctly_applies_eq_operator()
+    public function correctly_applies_eq_operator(): void
     {
         $search = new SearchTerm('name', 'eq', 'age', 1);
         $builder = app(Builder::class);
 
-        (new NumericFilter)->modifyQuery($builder, $search);
+        (new NumericFilter())->modifyQuery($builder, $search);
         $where = $builder->wheres[0];
 
         $this->assertEquals('age', $where['column']);
@@ -28,12 +28,12 @@ class NumericFilterTest extends TestCase
     /**
      * @test
      */
-    public function correctly_applies_neq_operator()
+    public function correctly_applies_neq_operator(): void
     {
         $search = new SearchTerm('age', 'neq', 'age', 1);
         $builder = app(Builder::class);
 
-        (new NumericFilter)->modifyQuery($builder, $search);
+        (new NumericFilter())->modifyQuery($builder, $search);
         $where = $builder->wheres[0];
 
         $this->assertEquals('age', $where['column']);
@@ -44,12 +44,12 @@ class NumericFilterTest extends TestCase
     /**
      * @test
      */
-    public function correctly_applies_in_operator()
+    public function correctly_applies_in_operator(): void
     {
         $search = new SearchTerm('age', 'in', 'age', '1,2');
         $builder = app(Builder::class);
 
-        (new NumericFilter)->modifyQuery($builder, $search);
+        (new NumericFilter())->modifyQuery($builder, $search);
         $where = $builder->wheres[0];
 
         $this->assertEquals('age', $where['column']);
@@ -60,12 +60,12 @@ class NumericFilterTest extends TestCase
     /**
      * @test
      */
-    public function correctly_applies_nin_operator()
+    public function correctly_applies_nin_operator(): void
     {
         $search = new SearchTerm('age', 'nin', 'age', '1,2');
         $builder = app(Builder::class);
 
-        (new NumericFilter)->modifyQuery($builder, $search);
+        (new NumericFilter())->modifyQuery($builder, $search);
         $where = $builder->wheres[0];
 
         $this->assertEquals('age', $where['column']);

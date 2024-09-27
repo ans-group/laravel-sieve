@@ -13,10 +13,10 @@ class MapFilterTest extends TestCase
     /**
      * @test
      */
-    public function can_target_relationships()
+    public function can_target_relationships(): void
     {
         $mapFilter = new MapFilter('owner.id');
-        $mapFilter->wrap(new StringFilter);
+        $mapFilter->wrap(new StringFilter());
 
         $eloquentBuilder = Pet::query();
         $mapFilter->modifyQuery($eloquentBuilder, new SearchTerm(
@@ -29,7 +29,8 @@ class MapFilterTest extends TestCase
 
         $builder = $eloquentBuilder->getQuery();
         $this->assertEquals(
-            "select * from `pets` where exists (select * from `owners` where `pets`.`owner_id` = `owners`.`id` and `id` = ?)",
+            'select * from "pets" where exists ' .
+            '(select * from "owners" where "pets"."owner_id" = "owners"."id" and "id" = ?)',
             $builder->toSql()
         );
     }
@@ -37,10 +38,10 @@ class MapFilterTest extends TestCase
     /**
      * @test
      */
-    public function can_target_columns_in_the_same_table()
+    public function can_target_columns_in_the_same_table(): void
     {
         $mapFilter = new MapFilter('oid');
-        $mapFilter->wrap(new StringFilter);
+        $mapFilter->wrap(new StringFilter());
 
         $eloquentBuilder = Pet::query();
         $mapFilter->modifyQuery($eloquentBuilder, new SearchTerm(
@@ -53,7 +54,7 @@ class MapFilterTest extends TestCase
 
         $builder = $eloquentBuilder->getQuery();
         $this->assertEquals(
-            "select * from `pets` where `oid` = ?",
+            'select * from "pets" where "oid" = ?',
             $builder->toSql()
         );
     }
@@ -61,11 +62,11 @@ class MapFilterTest extends TestCase
     /**
      * @test
      */
-    public function can_target_nested_relationships()
+    public function can_target_nested_relationships(): void
     {
 
         $mapFilter = new MapFilter('owner.card.id');
-        $mapFilter->wrap(new StringFilter);
+        $mapFilter->wrap(new StringFilter());
 
         $eloquentBuilder = Pet::query();
         $mapFilter->modifyQuery($eloquentBuilder, new SearchTerm(
@@ -78,7 +79,9 @@ class MapFilterTest extends TestCase
 
         $builder = $eloquentBuilder->getQuery();
         $this->assertEquals(
-            "select * from `pets` where exists (select * from `owners` where `pets`.`owner_id` = `owners`.`id` and exists (select * from `cards` where `owners`.`id` = `cards`.`owner_id` and `id` = ?))",
+            'select * from "pets" where' .
+            ' exists (select * from "owners" where "pets"."owner_id" = "owners"."id" and' .
+            ' exists (select * from "cards" where "owners"."id" = "cards"."owner_id" and "id" = ?))',
             $builder->toSql()
         );
     }
