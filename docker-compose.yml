@@ -1,6 +1,6 @@
 services:
   php82:
-    container_name: authentication-package-php82
+    container_name: sieve-package-php82
     build:
       context: .
       dockerfile: .docker/php82/Dockerfile
@@ -9,11 +9,11 @@ services:
     volumes:
       - './:/app'
     networks:
-      - authentication-package
+      - sieve-package
     extra_hosts:
       - "host..xdebug.internal:host-gateway"
   php83:
-    container_name: authentication-package-php83
+    container_name: sieve-package-php83
     build:
       context: .
       dockerfile: .docker/php83/Dockerfile
@@ -22,11 +22,11 @@ services:
     volumes:
       - './:/app'
     networks:
-      - authentication-package
+      - sieve-package
     extra_hosts:
       - "host..xdebug.internal:host-gateway"
 
 networks:
-  authentication-package:
-    name: ${AUTHENTICATION_PACKAGE_NETWORK:-authentication-package}
+  sieve-package:
+    name: ${SIEVE_PACKAGE_NETWORK:-sieve-package}
 
