@@ -2,7 +2,6 @@
 
 namespace UKFast\Sieve\Filters;
 
-use Illuminate\Database\Query\Builder;
 use UKFast\Sieve\ModifiesQueries;
 use UKFast\Sieve\SearchTerm;
 
@@ -14,9 +13,9 @@ class BooleanFilter implements ModifiesQueries
 
     public function modifyQuery($query, SearchTerm $search): void
     {
-        $op = '=';
+        $operator = '=';
         if ($search->operator() == 'neq') {
-            $op = '!=';
+            $operator = '!=';
         }
 
         $searchTerm = true;
@@ -24,7 +23,7 @@ class BooleanFilter implements ModifiesQueries
             $searchTerm = false;
         }
 
-        $query->where($search->column(), $op, $searchTerm ? $this->trueVal : $this->falseVal);
+        $query->where($search->column(), $operator, $searchTerm ? $this->trueVal : $this->falseVal);
     }
 
     public function operators(): array
