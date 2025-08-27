@@ -27,10 +27,16 @@ class NumericFilter implements ModifiesQueries
         if ($search->operator() == 'gt') {
             $query->where($search->column(), '>', $search->term());
         }
+        if ($search->operator() == 'lte') {
+            $query->where($search->column(), '<=', $search->term());
+        }
+        if ($search->operator() == 'gte') {
+            $query->where($search->column(), '>=', $search->term());
+        }
     }
 
     public function operators(): array
     {
-        return ['eq', 'neq', 'in', 'nin', 'lt', 'gt'];
+        return ['eq', 'neq', 'in', 'nin', 'lt', 'gt', 'lte', 'gte'];
     }
 }
