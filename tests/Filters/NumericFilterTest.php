@@ -3,6 +3,7 @@
 namespace Tests\Filters;
 
 use Illuminate\Database\Query\Builder;
+use Tests\Mocks\Pet;
 use Tests\TestCase;
 use UKFast\Sieve\Filters\NumericFilter;
 use UKFast\Sieve\SearchTerm;
@@ -71,5 +72,29 @@ class NumericFilterTest extends TestCase
         $this->assertEquals('age', $where['column']);
         $this->assertEquals('NotIn', $where['type']);
         $this->assertEquals([1, 2], $where['values']);
+    }
+
+    public function testCanFilterByLte(): void
+    {
+        $query = Pet::query()->getQuery();
+        $search = new SearchTerm('id', 'lte', 'id', '5');
+        (new NumericFilter())->modifyQuery($query, $search);
+
+        $this->assertEquals(
+            'select * from "pets" where "id" <= ?',
+            $query->toSql()
+        );
+    }
+
+    public function testCanFilterByGte(): void
+    {
+        $query = Pet::query()->getQuery();
+        $search = new SearchTerm('id', 'gte', 'id', '5');
+        (new NumericFilter())->modifyQuery($query, $search);
+
+        $this->assertEquals(
+            'select * from "pets" where "id" >= ?',
+            $query->toSql()
+        );
     }
 }

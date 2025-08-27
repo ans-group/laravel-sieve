@@ -102,6 +102,28 @@ class DateFilterTest extends TestCase
         );
     }
 
+    public function testCanFilterByLte(): void
+    {
+        $query = Pet::query()->getQuery();
+        (new DateFilter())->modifyQuery($query, $this->searchTerm('lte', '2020-01-01T00:00:00+00:00'));
+
+        $this->assertEquals(
+            'select * from "pets" where "created_at" <= ?',
+            $query->toSql()
+        );
+    }
+
+    public function testCanFilterByGte(): void
+    {
+        $query = Pet::query()->getQuery();
+        (new DateFilter())->modifyQuery($query, $this->searchTerm('gte', '2020-01-01T00:00:00+00:00'));
+
+        $this->assertEquals(
+            'select * from "pets" where "created_at" >= ?',
+            $query->toSql()
+        );
+    }
+
     /**
      * @test
      */
