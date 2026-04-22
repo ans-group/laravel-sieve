@@ -5,12 +5,11 @@ namespace Tests;
 use Tests\Mocks\Pet;
 use UKFast\Sieve\Filters\DateFilter;
 use UKFast\Sieve\SearchTerm;
+use PHPUnit\Framework\Attributes\Test;
 
 class DateFilterTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function can_filter_by_eq(): void
     {
         $query = Pet::query()->getQuery();
@@ -22,9 +21,7 @@ class DateFilterTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function can_filter_by_neq(): void
     {
         $query = Pet::query()->getQuery();
@@ -36,9 +33,7 @@ class DateFilterTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function can_filter_by_in(): void
     {
         $query = Pet::query()->getQuery();
@@ -55,9 +50,7 @@ class DateFilterTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function can_filter_by_nin(): void
     {
         $query = Pet::query()->getQuery();
@@ -74,9 +67,7 @@ class DateFilterTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function can_filter_by_lt(): void
     {
         $query = Pet::query()->getQuery();
@@ -88,9 +79,7 @@ class DateFilterTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function can_filter_by_gt(): void
     {
         $query = Pet::query()->getQuery();
@@ -124,9 +113,7 @@ class DateFilterTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function can_filter_null_by_eq(): void
     {
         $query = Pet::query()->getQuery();
@@ -138,9 +125,7 @@ class DateFilterTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function can_filter_null_by_neq(): void
     {
         $query = Pet::query()->getQuery();

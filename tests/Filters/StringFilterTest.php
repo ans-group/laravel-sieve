@@ -6,12 +6,11 @@ use Illuminate\Database\Query\Builder;
 use Tests\TestCase;
 use UKFast\Sieve\Filters\StringFilter;
 use UKFast\Sieve\SearchTerm;
+use PHPUnit\Framework\Attributes\Test;
 
 class StringFilterTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function correctly_applies_eq_operator(): void
     {
         $search = new SearchTerm('name', 'eq', 'name', 'Bob');
@@ -25,9 +24,7 @@ class StringFilterTest extends TestCase
         $this->assertEquals('Bob', $where['value']);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function correctly_applies_neq_operator(): void
     {
         $search = new SearchTerm('name', 'neq', 'name', 'Bob');
@@ -41,9 +38,7 @@ class StringFilterTest extends TestCase
         $this->assertEquals('Bob', $where['value']);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function correctly_applies_in_operator(): void
     {
         $search = new SearchTerm('name', 'in', 'name', 'Bob,James');
@@ -57,9 +52,7 @@ class StringFilterTest extends TestCase
         $this->assertEquals(['Bob', 'James'], $where['values']);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function correctly_applies_nin_operator(): void
     {
         $search = new SearchTerm('name', 'nin', 'name', 'Bob,James');
@@ -73,9 +66,7 @@ class StringFilterTest extends TestCase
         $this->assertEquals(['Bob', 'James'], $where['values']);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function correctly_applies_lk_operator(): void
     {
         $search = new SearchTerm('name', 'lk', 'name', '*t\\\\est\\*');
@@ -86,9 +77,7 @@ class StringFilterTest extends TestCase
         $this->assertEquals(['%t\est*'], $builder->getBindings());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function correctly_applies_nlk_operator(): void
     {
         $search = new SearchTerm('name', 'nlk', 'name', '*t\\\\est\\*');
