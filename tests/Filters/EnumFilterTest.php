@@ -7,12 +7,11 @@ use Tests\TestCase;
 use UKFast\Sieve\Exceptions\InvalidSearchTermException;
 use UKFast\Sieve\Filters\EnumFilter;
 use UKFast\Sieve\SearchTerm;
+use PHPUnit\Framework\Attributes\Test;
 
 class EnumFilterTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function throws_exception_on_invalid_search_term(): void
     {
         $filter = new EnumFilter(['a', 'b', 'c']);
@@ -30,9 +29,7 @@ class EnumFilterTest extends TestCase
         }
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function can_search_if_passed_a_valid_term(): void
     {
         $filter = new EnumFilter(['a', 'b', 'c']);

@@ -12,12 +12,11 @@ use UKFast\Sieve\Filters\EnumFilter;
 use UKFast\Sieve\Filters\NumericFilter;
 use UKFast\Sieve\Filters\StringFilter;
 use UKFast\Sieve\MapFilter;
+use PHPUnit\Framework\Attributes\Test;
 
 class FilterBuilderTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function can_build_strings(): void
     {
         $builder = new FilterBuilder();
@@ -25,9 +24,7 @@ class FilterBuilderTest extends TestCase
         $this->assertInstanceOf(StringFilter::class, $builder->string());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function can_build_enum(): void
     {
         $builder = new FilterBuilder();
@@ -35,9 +32,7 @@ class FilterBuilderTest extends TestCase
         $this->assertInstanceOf(EnumFilter::class, $builder->enum(['a', 'b']));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function can_build_numeric(): void
     {
         $builder = new FilterBuilder();
@@ -45,9 +40,7 @@ class FilterBuilderTest extends TestCase
         $this->assertInstanceOf(NumericFilter::class, $builder->numeric());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function can_build_date(): void
     {
         $builder = new FilterBuilder();
@@ -55,9 +48,7 @@ class FilterBuilderTest extends TestCase
         $this->assertInstanceOf(DateFilter::class, $builder->date());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function can_build_boolean(): void
     {
         $builder = new FilterBuilder();
@@ -66,9 +57,7 @@ class FilterBuilderTest extends TestCase
     }
 
 
-    /**
-     * @test
-     */
+    #[Test]
     public function can_build_custom_filters(): void
     {
         $builder = new FilterBuilder();
@@ -76,9 +65,7 @@ class FilterBuilderTest extends TestCase
         $this->assertInstanceOf(NoOpFilter::class, $builder->custom(new NoOpFilter()));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function can_wrap_filters(): void
     {
         $builder = new FilterBuilder();
@@ -87,9 +74,7 @@ class FilterBuilderTest extends TestCase
         $this->assertInstanceOf(PenceWrapper::class, $wrapped);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function can_wrap_multiple_filters(): void
     {
         $builder = new FilterBuilder();

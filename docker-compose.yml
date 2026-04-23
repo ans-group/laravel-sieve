@@ -1,9 +1,9 @@
 services:
-  php82:
-    container_name: sieve-package-php82
+  php83:
+    container_name: sieve-package-php83
     build:
       context: .
-      dockerfile: .docker/php82/Dockerfile
+      dockerfile: .docker/php83/Dockerfile
       args:
         - SSH_PRIVATE_KEY
     volumes:
@@ -12,11 +12,24 @@ services:
       - sieve-package
     extra_hosts:
       - "host..xdebug.internal:host-gateway"
-  php83:
-    container_name: sieve-package-php83
+  php84:
+    container_name: sieve-package-php84
     build:
       context: .
-      dockerfile: .docker/php83/Dockerfile
+      dockerfile: .docker/php84/Dockerfile
+      args:
+        - SSH_PRIVATE_KEY
+    volumes:
+      - './:/app'
+    networks:
+      - sieve-package
+    extra_hosts:
+      - "host..xdebug.internal:host-gateway"
+  php85:
+    container_name: sieve-package-php85
+    build:
+      context: .
+      dockerfile: .docker/php85/Dockerfile
       args:
         - SSH_PRIVATE_KEY
     volumes:

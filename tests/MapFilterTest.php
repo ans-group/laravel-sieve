@@ -7,12 +7,11 @@ use Tests\TestCase;
 use UKFast\Sieve\Filters\StringFilter;
 use UKFast\Sieve\MapFilter;
 use UKFast\Sieve\SearchTerm;
+use PHPUnit\Framework\Attributes\Test;
 
 class MapFilterTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function can_target_relationships(): void
     {
         $mapFilter = new MapFilter('owner.id');
@@ -35,9 +34,7 @@ class MapFilterTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function can_target_columns_in_the_same_table(): void
     {
         $mapFilter = new MapFilter('oid');
@@ -59,9 +56,7 @@ class MapFilterTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function can_target_nested_relationships(): void
     {
 

@@ -1,4 +1,4 @@
-FROM php:8.2-alpine AS apio
+FROM php:8.4-alpine AS apio
 RUN apk add --update git \
     linux-headers \
     $PHPIZE_DEPS \

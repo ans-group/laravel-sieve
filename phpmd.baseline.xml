@@ -2,6 +2,9 @@
 <phpmd-baseline>
   <violation rule="PHPMD\Rule\Naming\ShortVariable" file="src/Filters/BooleanFilter.php"/>
   <violation rule="PHPMD\Rule\CleanCode\ElseExpression" file="src/Filters/DateFilter.php"/>
+  <violation rule="PHPMD\Rule\CyclomaticComplexity" file="src/Filters/DateFilter.php" method="modifyQuery"/>
+  <violation rule="PHPMD\Rule\Design\NpathComplexity" file="src/Filters/DateFilter.php" method="modifyQuery"/>
+  <violation rule="PHPMD\Rule\Design\NpathComplexity" file="src/Filters/NumericFilter.php" method="modifyQuery"/>
   <violation rule="PHPMD\Rule\CyclomaticComplexity" file="src/Sieve.php" method="applyRequestSorts"/>
   <violation rule="PHPMD\Rule\Design\NpathComplexity" file="src/Sieve.php" method="applyRequestSorts"/>
   <violation rule="PHPMD\Rule\Controversial\CamelCaseMethodName" file="tests/FilterBuilderTest.php" method="can_build_strings"/>

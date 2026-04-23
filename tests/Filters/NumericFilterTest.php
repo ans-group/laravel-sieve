@@ -7,12 +7,11 @@ use Tests\Mocks\Pet;
 use Tests\TestCase;
 use UKFast\Sieve\Filters\NumericFilter;
 use UKFast\Sieve\SearchTerm;
+use PHPUnit\Framework\Attributes\Test;
 
 class NumericFilterTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function correctly_applies_eq_operator(): void
     {
         $search = new SearchTerm('name', 'eq', 'age', 1);
@@ -26,9 +25,7 @@ class NumericFilterTest extends TestCase
         $this->assertEquals(1, $where['value']);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function correctly_applies_neq_operator(): void
     {
         $search = new SearchTerm('age', 'neq', 'age', 1);
@@ -42,9 +39,7 @@ class NumericFilterTest extends TestCase
         $this->assertEquals(1, $where['value']);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function correctly_applies_in_operator(): void
     {
         $search = new SearchTerm('age', 'in', 'age', '1,2');
@@ -58,9 +53,7 @@ class NumericFilterTest extends TestCase
         $this->assertEquals([1, 2], $where['values']);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function correctly_applies_nin_operator(): void
     {
         $search = new SearchTerm('age', 'nin', 'age', '1,2');

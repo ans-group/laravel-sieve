@@ -7,12 +7,11 @@ use Illuminate\Http\Request;
 use Tests\Mocks\Pet;
 use UKFast\Sieve\Filters\StringFilter;
 use UKFast\Sieve\Sieve;
+use PHPUnit\Framework\Attributes\Test;
 
 class SieveTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function filters_and_sorts(): void
     {
         $request = Request::create('/', 'GET', [
@@ -38,8 +37,8 @@ class SieveTest extends TestCase
     }
 
     /**
-     * @test
      */
+        #[Test]
     public function set_default_sort_filter(): void
     {
         $request = Request::create('/');
@@ -62,8 +61,8 @@ class SieveTest extends TestCase
     }
 
     /**
-     * @test
      */
+        #[Test]
     public function applies_sieve_sorts_to_a_query_builder_asc_by_default(): void
     {
         $request = Request::create('/', 'GET', [
@@ -86,8 +85,8 @@ class SieveTest extends TestCase
     }
 
     /**
-     * @test
      */
+        #[Test]
     public function applies_sieve_sorts_to_a_query_builder_asc(): void
     {
         $request = Request::create('/', 'GET', [
@@ -110,8 +109,8 @@ class SieveTest extends TestCase
     }
 
     /**
-     * @test
      */
+        #[Test]
     public function applies_sieve_sorts_to_a_query_builder_asc_nulls_last(): void
     {
         $request = Request::create('/', 'GET', [
@@ -134,8 +133,8 @@ class SieveTest extends TestCase
     }
 
     /**
-     * @test
      */
+        #[Test]
     public function applies_sieve_sorts_to_a_query_builder_desc_nulls_first(): void
     {
         $request = Request::create('/', 'GET', [
@@ -158,8 +157,8 @@ class SieveTest extends TestCase
     }
 
     /**
-     * @test
      */
+        #[Test]
     public function allows_multiple_columns_to_be_ordered(): void
     {
         $request = Request::create('/', 'GET', [
@@ -183,8 +182,8 @@ class SieveTest extends TestCase
     }
 
     /**
-     * @test
      */
+        #[Test]
     public function allows_multiple_columns_to_be_ordered_including_a_null_column(): void
     {
         $request = Request::create('/', 'GET', [
@@ -208,8 +207,8 @@ class SieveTest extends TestCase
     }
 
     /**
-     * @test
      */
+        #[Test]
     public function applies_order_by_in_order_when_sieve_config_order_is_different(): void
     {
         $request = Request::create('/', 'GET', [
@@ -233,8 +232,8 @@ class SieveTest extends TestCase
     }
 
     /**
-     * @test
      */
+        #[Test]
     public function ignores_undefined_sort(): void
     {
         $request = Request::create('/', 'GET', [
@@ -252,8 +251,8 @@ class SieveTest extends TestCase
     }
 
     /**
-     * @test
      */
+        #[Test]
     public function ignores_invalid_sort_direction(): void
     {
         $request = Request::create('/', 'GET', [
@@ -272,8 +271,8 @@ class SieveTest extends TestCase
     }
 
     /**
-     * @test
      */
+        #[Test]
     public function expands_no_eplicit_operator_to_eq(): void
     {
         $request = Request::create('/', 'GET', [
@@ -298,8 +297,8 @@ class SieveTest extends TestCase
     }
 
     /**
-     * @test
      */
+        #[Test]
     public function sorts_can_be_remapped(): void
     {
         $request = Request::create('/', 'GET', [
@@ -324,8 +323,8 @@ class SieveTest extends TestCase
 
     /**
      * Not figured out a good way to do this with eloquent yet
-     * @test
      */
+    #[Test]
     public function ignores_sorts_on_relationships(): void
     {
         $request = Request::create('/', 'GET', [

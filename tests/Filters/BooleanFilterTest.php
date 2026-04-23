@@ -6,12 +6,11 @@ use Tests\Mocks\Pet;
 use Tests\TestCase;
 use UKFast\Sieve\Filters\BooleanFilter;
 use UKFast\Sieve\SearchTerm;
+use PHPUnit\Framework\Attributes\Test;
 
 class BooleanFilterTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function can_filter_eq(): void
     {
         $filter = new BooleanFilter();
@@ -25,9 +24,7 @@ class BooleanFilterTest extends TestCase
         $this->assertEquals([1], $builder->getBindings());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function can_filter_neq(): void
     {
         $filter = new BooleanFilter();
@@ -41,9 +38,7 @@ class BooleanFilterTest extends TestCase
         $this->assertEquals([1], $builder->getBindings());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function can_override_true_and_false_val(): void
     {
         $filter = new BooleanFilter('yes', 'no');
@@ -57,9 +52,7 @@ class BooleanFilterTest extends TestCase
         $this->assertEquals(['yes'], $builder->getBindings());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function can_handle_false_in_url_string_as_boolean(): void
     {
         $filter = new BooleanFilter();
