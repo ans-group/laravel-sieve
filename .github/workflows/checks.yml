@@ -48,8 +48,8 @@ jobs:
       - name: Setup
         uses: ./.github/actions/setup
         with:
-          php_version: 8.3
-          laravel_version: 11
+          php_version: 8.5
+          laravel_version: 13
 
       - name: Run codesniffer
         run: composer phpcs
@@ -65,8 +65,8 @@ jobs:
       - name: Setup
         uses: ./.github/actions/setup
         with:
-          php_version: 8.3
-          laravel_version: 11
+          php_version: 8.5
+          laravel_version: 13
 
       - name: Run mess detector
         run: composer phpmd
@@ -82,8 +82,8 @@ jobs:
       - name: Setup
         uses: ./.github/actions/setup
         with:
-          php_version: 8.3
-          laravel_version: 11
+          php_version: 8.5
+          laravel_version: 13
 
       - name: Run Rector
         run: composer rector
@@ -99,8 +99,8 @@ jobs:
       - name: Setup
         uses: ./.github/actions/setup
         with:
-          php_version: 8.3
-          laravel_version: 11
+          php_version: 8.5
+          laravel_version: 13
 
       - name: Run Larastan
         run: composer larastan
